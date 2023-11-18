@@ -13,95 +13,105 @@ class Course:
         self.param = ""
         self.title = ""
         self.code = ""
-        self.sect = []
+        self.sects = []
 
 class CourseSection:
     def __init__(self):
         self.val = ""
-        self.info = []
+        self.infos = []
 
 class CourseInfo:
     def __init__(self):
         self.day = ""
         self.time = ""
         self.lecturer = ""
-        self.rect = []
 
-    def updateDiscreteRects(self):
-        n_time1 = CourseRect.parseTime(self.time, 0)
-        n_time2 = CourseRect.parseTime(self.time, self.time.find('- ') + 2)
-        n_time2 = n_time2 + 720 if n_time1 > n_time2 else n_time2
+class CourseTable:
+    def __init__(self, s_code, sect):
+        self.code = s_code
+        self.sect = sect.val  # string form
+        self.vrects = [[],[]]
 
-        n_time_const = CourseRect.getTimeOffset(self.time, n_time1, n_time2)
+        n_rects = []
+        for info in sect.infos:
+            n_rect = Rect()
 
-        n_time1 = n_time1 + n_time_const
-        n_time2 = n_time2 + n_time_const
+            n_time1 = CourseTable.parseTime(self.time, 0)
+            n_time2 = CourseTable.parseTime(self.time, self.time.find('- ') + 2)
+            n_time2 = n_time2 + 720 if n_time1 > n_time2 else n_time2
 
-        n_y = n_time1
-        n_h = (n_time2 - n_time1)
+            n_time_const = CourseTable.getTimeOffset(self.time, n_time1, n_time2)
 
-        dict_day_to_index = {
-            'TUE': [1],
-            'FRI': [4],
-            'THUR': [3],
-            'MON': [0],
-            'WED': [2],
-            'T-W': [1, 2],
-            'W-TH': [2, 3],
-            'TH-FRI': [3, 4],
-            'MTWTHF': [0, 1, 2, 3, 4],
-            'MTTHF': [0, 1, 3, 4],
-            'M-W': [0, 3],
-            'T-TH': [1, 3],
-            'TUE-SUN': [1, 6],
-            'SUN': [6],
-            'M-TH': [0, 3],
-            'MTWTH': [0, 1, 2, 3],
-            'MTW': [0, 1, 2],
-            'TWTH': [1, 2, 3],
-            'SAT': [5],
-            'M-F': [0, 4],
-            'SUN-T': [1, 6],
-            'SAT-SUN': [5, 6],
-            'W-TH-F': [2, 3, 4]
-        }
+            n_time1 = n_time1 + n_time_const
+            n_time2 = n_time2 + n_time_const
 
-        for x in dict_day_to_index[self.day]:
-            rect = CourseRect()
-            rect.x = x
-            rect.y = n_y
-            rect.w = 0
-            rect.h = n_h
-            self.rect.append(rect)
-    
-    def clearRects(self):
-        for rect in self.rect:
-            rect.pop()
+            dict_dtoi = {       # dtoi = day to index
+                'TUE': [1],
+                'FRI': [4],
+                'THUR': [3],
+                'MON': [0],
+                'WED': [2],
+                'T-W': [1, 2],
+                'W-TH': [2, 3],
+                'TH-FRI': [3, 4],
+                'MTWTHF': [0, 1, 2, 3, 4],
+                'MTTHF': [0, 1, 3, 4],
+                'M-W': [0, 3],
+                'T-TH': [1, 3],
+                'TUE-SUN': [1, 6],
+                'SUN': [6],
+                'M-TH': [0, 3],
+                'MTWTH': [0, 1, 2, 3],
+                'MTW': [0, 1, 2],
+                'TWTH': [1, 2, 3],
+                'SAT': [5],
+                'M-F': [0, 4],
+                'SUN-T': [1, 6],
+                'SAT-SUN': [5, 6],
+                'W-TH-F': [2, 3, 4]
+            }
 
-class CourseRect:
-    def __init__(self):
-        self.x = 0
-        self.y = 0
-        self.w = 0
-        self.h = 0
+            for x in dict_dtoi[self.day]:
+                n_rect = Rect()
+                n_rect.x = x
+                n_rect.y = n_time1
+                n_rect.w = 0
+                n_rect.h = n_time2 - n_time1
+
+                n_rects.append(n_rect)
+
+            self.vrects.append(n_rects)
 
     @staticmethod
-    def parseTime(time, offset):
+    def isTablesCollide(table1, table2):  # must be in discrete form
+        for rects1 in table1.vrects:
+            for rect1 in rects1:
+                for rects2 in table2.vrects:
+                    for rect2 in rects2:
+                        if rect1.x == rect2.x:
+                            b_case1 = rect1.y >= rect2.y and rect1.y < rect2.y + rect2.h # rect1 overlap rect2
+                            b_case2 = rect2.y >= rect1.y and rect2.y < rect1.y + rect1.h # rect2 overlap rect1
+                            if b_case1 or b_case2:
+                                return True
+        return False
+
+    @staticmethod
+    def getParseTime(s_time, n_offset):
         n_sum = 0
         n_carry = 0
         n_min_const = 60
-        time = time[offset:]
+        s_time = s_time[n_offset:]
 
         while True:
-            if time[0] == ".":
+            if s_time[0] == ".":
                 n_min_const = 1
                 n_carry = n_sum
                 n_sum = 0
-            elif time[0] != " ":
-                n_sum = n_sum * 10 + float(time[0]) * n_min_const
+            elif s_time[0] != " ":
+                n_sum = n_sum * 10 + float(s_time[0]) * n_min_const
             else:
                 return n_sum + n_carry
-            time = time[1:]
+            s_time = s_time[1:]
 
     @staticmethod
     def getTimeOffset(str_time, n_time1, n_time2):
@@ -116,19 +126,35 @@ class CourseRect:
             if b_time1 or b_time2:
                 n_time_const = 720 if n_time_const == 0 else 720
         return n_time_const
+
+class Rect:
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+        self.w = 0
+        self.h = 0
     
-    # @staticmethod
-    # def isCollision(rect1, rect2):
-    #     if rect1.x >= rect2.x + rect2.w:
-    #         return False
-    #     if rect1.x + rect1.w <= rect2.x:
-    #         return False
-    #     if rect1.y >= rect2.y + rect2.h:
-    #         return False
-    #     if rect1.y + rect1.h <= rect2.y:
-    #         return False
-    #     return True
+class Counter:
+    def __init__(self, varrs, start_offset):
+        self.counter = [0] * len(varrs)
+        self.counter[0] = start_offset if start_offset < len(self.counter[0]) else 0
+        self.limit = [0] * len(varrs)
 
+        for i in range(len(varrs)):
+            self.limit[i] = len(varrs[i])
 
-                
-        
+    def increment(self):
+        for i in range(len(self.counter)):
+            if self.counter[i] + 1 < self.limit[i]:
+                self.counter[i] += 1
+                return True
+            else:
+                self.counter[i] = 0
+        return False
+    
+    def get(self, index):
+        return self.counter[index]
+
+    def reset(self):    # Unused function
+        for i in range(len(self.counter)):
+            self.counter[i] = 0

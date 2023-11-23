@@ -55,7 +55,7 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
            <item row="0" column="0">
-            <widget class="QOpenGLWidget" name="gl_table"/>
+            <widget class="QOpenGLWidget" name="ogl_table"/>
            </item>
           </layout>
          </widget>

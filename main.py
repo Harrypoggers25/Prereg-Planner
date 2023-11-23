@@ -9,7 +9,11 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from HP_Framework.widgets import HpGlWidget, HpRgbColor, HpFont
+from HP_Framework.graphics import HpGlWidget
+from Prereg_Engines.course_engine import CourseEngine
+from Prereg_Engines.table_engine import TableEngine
+from HP_Framework.objects import HpRgbColor
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -48,17 +52,10 @@ class Ui_MainWindow(object):
         self.gridLayout_2 = QtWidgets.QGridLayout(self.frm_right)
         self.gridLayout_2.setObjectName("gridLayout_2")
 
-        self.gl_table = HpGlWidget(self.wgt_central)
-        self.gl_table.setObjectName("gl_table")
-        self.gl_table.addRect(0, 0, 100, 100, HpRgbColor(255, 255, 0))
-        self.gl_table.addRect(100, 100, 100, 100, HpRgbColor(255, 0, 0))
-        self.gl_table.addRect(200, 200, 100, 100, HpRgbColor(0, 0, 255))
-        self.gl_table.addRect(300, 300, 100, 100, HpRgbColor(0, 255, 0))
-        font = HpFont("Arial", 10, 600)
-        self.gl_table.addText(300, 300, "EECE 1234", font, HpRgbColor(255, 255, 255))
-        self.gl_table.addText(300, 315, "EECE 1234", font, HpRgbColor(255, 255, 255))
+        self.ogl_table = HpGlWidget(self.wgt_central)
+        self.ogl_table.setObjectName("ogl_table")
 
-        self.gridLayout_2.addWidget(self.gl_table, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.ogl_table, 0, 0, 1, 1)
         self.horizontalLayout_3.addWidget(self.frm_right)
         self.stackedWidget.addWidget(self.wgt_page2)
         self.gridLayout.addWidget(self.stackedWidget, 0, 0, 1, 1)
@@ -67,6 +64,28 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+        # ----------------------TESTING---------------------- #
+        self.course_engine = CourseEngine()
+        self.course_engine.loadCourses(7, 0, 0)
+        self.course_engine.selectCourse("ECIE 4101")
+        self.course_engine.selectCourse("ECIE 4311")
+        self.course_engine.selectCourse("ECIE 4312")
+        self.course_engine.selectCourse("ECIE 4313")
+        self.course_engine.selectCourse("ECIE 4351")
+        self.course_engine.selectCourse("ECIE 4398")
+        self.course_engine.selectCourse("EECE 3102")
+        self.course_engine.selectCourse("MANU 3318")
+        vcombinations = self.course_engine.getVCombinations()
+
+        # W = 345, H = 532
+        table_engine = TableEngine()
+        table_engine.setVCombinations(vcombinations)
+        table_engine.selectCombinations(0)
+        vrects = table_engine.getResizedRect(345, 532)
+        for rects in vrects:
+            for rect in rects:
+                self.ogl_table.addRect(rect.x, rect.y, rect.w, rect.h, HpRgbColor(255, 0, 0))
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

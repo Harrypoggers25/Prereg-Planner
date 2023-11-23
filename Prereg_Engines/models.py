@@ -30,48 +30,47 @@ class CourseTable:
     def __init__(self, s_code, sect):
         self.code = s_code
         self.sect = sect.val  # string form
-        self.vrects = [[],[]]
+        self.vrects = []
 
-        n_rects = []
         for info in sect.infos:
-            n_rect = Rect()
 
-            n_time1 = CourseTable.parseTime(self.time, 0)
-            n_time2 = CourseTable.parseTime(self.time, self.time.find('- ') + 2)
+            n_time1 = CourseTable.getParseTime(info.time, 0)
+            n_time2 = CourseTable.getParseTime(info.time, info.time.find('- ') + 2)
             n_time2 = n_time2 + 720 if n_time1 > n_time2 else n_time2
 
-            n_time_const = CourseTable.getTimeOffset(self.time, n_time1, n_time2)
+            n_time_const = CourseTable.getTimeOffset(info.time, n_time1, n_time2)
 
             n_time1 = n_time1 + n_time_const
             n_time2 = n_time2 + n_time_const
 
             dict_dtoi = {       # dtoi = day to index
-                'TUE': [1],
-                'FRI': [4],
-                'THUR': [3],
                 'MON': [0],
+                'TUE': [1],
                 'WED': [2],
+                'THUR': [3],
+                'FRI': [4],
+                'SAT': [5],
+                'SUN': [6],
+                'M-W': [0, 2],
+                'M-TH': [0, 3],
+                'M-F': [0, 4],
                 'T-W': [1, 2],
+                'T-TH': [1, 3],
+                'SUN-T': [1, 6],
+                'TUE-SUN': [1, 6],
                 'W-TH': [2, 3],
                 'TH-FRI': [3, 4],
-                'MTWTHF': [0, 1, 2, 3, 4],
-                'MTTHF': [0, 1, 3, 4],
-                'M-W': [0, 3],
-                'T-TH': [1, 3],
-                'TUE-SUN': [1, 6],
-                'SUN': [6],
-                'M-TH': [0, 3],
-                'MTWTH': [0, 1, 2, 3],
+                'SAT-SUN': [5, 6],
                 'MTW': [0, 1, 2],
                 'TWTH': [1, 2, 3],
-                'SAT': [5],
-                'M-F': [0, 4],
-                'SUN-T': [1, 6],
-                'SAT-SUN': [5, 6],
-                'W-TH-F': [2, 3, 4]
+                'W-TH-F': [2, 3, 4],
+                'MTWTH': [0, 1, 2, 3],
+                'MTTHF': [0, 1, 3, 4],
+                'MTWTHF': [0, 1, 2, 3, 4]
             }
 
-            for x in dict_dtoi[self.day]:
+            n_rects = []
+            for x in dict_dtoi[info.day]:
                 n_rect = Rect()
                 n_rect.x = x
                 n_rect.y = n_time1
@@ -135,9 +134,9 @@ class Rect:
         self.h = 0
     
 class Counter:
-    def __init__(self, varrs, start_offset):
+    def __init__(self, varrs, start_offset : int):
         self.counter = [0] * len(varrs)
-        self.counter[0] = start_offset if start_offset < len(self.counter[0]) else 0
+        self.counter[0] = start_offset if start_offset < self.counter[0] else 0
         self.limit = [0] * len(varrs)
 
         for i in range(len(varrs)):
@@ -145,8 +144,8 @@ class Counter:
 
     def increment(self):
         for i in range(len(self.counter)):
-            if self.counter[i] + 1 < self.limit[i]:
-                self.counter[i] += 1
+            self.counter[i] += 1
+            if self.counter[i] < self.limit[i]:
                 return True
             else:
                 self.counter[i] = 0

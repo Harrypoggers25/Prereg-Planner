@@ -1,10 +1,6 @@
 from bs4 import BeautifulSoup
 
-from models import Session
-from models import Kulliyah
-from models import Course
-from models import CourseInfo
-from models import CourseSection
+from Prereg_Engines.models import Session, Kulliyah, Course, CourseInfo, CourseSection
 
 # Main Page Parser
 class HTMLMPParser:
@@ -63,7 +59,7 @@ class HTMLCPParser:
                 info.time = subdatas[1].text
                 info.lecturer = subdatas[3].text
                 if info.day != "" and info.time != "" and info.time != " " and info.time != ' AM' and info.time != ' PM':
-                    sect.info.append(info)
-            if len(sect.info) != 0:
-                dict_course[code].sect.append(sect)
+                    sect.infos.append(info)
+            if len(sect.infos) != 0:
+                dict_course[code].sects.append(sect)
         return dict_course

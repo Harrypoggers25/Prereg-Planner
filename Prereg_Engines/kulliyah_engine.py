@@ -1,7 +1,7 @@
 import urllib.request
 
-from html_parsers import HTMLMPParser
-from html_parsers import HTMLCPParser
+from Prereg_Engines.html_parsers import HTMLMPParser
+from Prereg_Engines.html_parsers import HTMLCPParser
 
 class KulliyahEngine:
     def __init__(self):
@@ -20,12 +20,6 @@ class KulliyahEngine:
             self.kulliyahs = p_html.parseKulliyah()
             self.sessions = p_html.parseSession()
             
-            # for course in self.list_course:
-            #     print(f"{course.val}: {course.name}")
-
-            # for session in self.list_session:
-            #     print(f"year: {session.year} | sem: {session.sem}")
-
         webObj.close()
 
     def setParam(self, n_kulliyah=0, n_session=0, n_ctype=0):
@@ -69,5 +63,5 @@ class KulliyahEngine:
                         if not code in dict_course:
                             dict_course[code] = parsed_courses[code]
                         else:
-                            dict_course[code].sect.extend(parsed_courses[code].sect)
+                            dict_course[code].sects.extend(parsed_courses[code].sects)
             n_page = n_page + 1

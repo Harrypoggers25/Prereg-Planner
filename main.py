@@ -82,10 +82,11 @@ class Ui_MainWindow(object):
         table_engine = TableEngine()
         table_engine.setVCombinations(vcombinations)
         table_engine.selectCombinations(0)
-        vrects = table_engine.getResizedRect(345, 532)
-        for rects in vrects:
-            for rect in rects:
-                self.ogl_table.addRect(rect.x, rect.y, rect.w, rect.h, HpRgbColor(255, 0, 0))
+        combinations = table_engine.getResizedCombinations(345, 532)
+        for table in combinations:
+            for rects in table.vrects:
+                for rect in rects:
+                    self.ogl_table.addRect(rect.x, rect.y, rect.w, rect.h, HpRgbColor(255, 0, 0))
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

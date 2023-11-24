@@ -96,7 +96,8 @@ class Ui_MainWindow(object):
         for table in combinations:
             for rects in table.vrects:
                 for rect in rects:
-                    self.ogl_table.addRect(rect.x, rect.y, rect.w, rect.h, HpRgbColor(255, 0, 0))
+                    self.ogl_table.addRect(rect.x, rect.y, rect.w, rect.h, table.color)
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))

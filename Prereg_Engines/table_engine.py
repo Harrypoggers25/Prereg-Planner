@@ -1,6 +1,7 @@
 import copy
 
 from Prereg_Engines.models import CourseTable, Counter
+from HP_Framework.objects import HpRgbColor
 
 class TableEngine():
     def __init__(self):
@@ -9,10 +10,29 @@ class TableEngine():
         self.vvrects = []
         self.bselected_courses = [] # list of boolean
         self.index = 0
+        self.color = [
+            HpRgbColor(238, 36, 36),    # RED
+            HpRgbColor(239, 81, 34),    # ORANGE
+            HpRgbColor(22, 87, 143),    # BLUE
+            HpRgbColor(20, 175, 74),    # GREEN
+            HpRgbColor(173, 20, 175),   # PURPLE
+            HpRgbColor(0, 94, 33),      # D_GREEN
+            HpRgbColor(80, 100, 0),     # D_YELLOW
+            HpRgbColor(2, 183, 164),    # D_CYAN
+            HpRgbColor(175, 92, 37),    # MUD
+            HpRgbColor(239, 88, 61),    # CARROT
+            HpRgbColor(50, 80, 140),    # P_BLUE
+            HpRgbColor(241, 85, 98),    # P_RED
+        ]
 
     def setVTblCourses(self, vtblcourses, bselected_courses = None):
         self.vtblcourses = vtblcourses
         self.bselected_courses = bselected_courses if bselected_courses else [True] * len(self.vtblcourses)
+
+        if len(self.color) < len(self.vtblcourses):
+            n_diff = len(self.vtblcourses) - len(self.color)
+            self.color.extend(self.color[:n_diff])
+
         self.generateCombinations()
 
     def generateCombinations(self):
@@ -77,6 +97,7 @@ class TableEngine():
         N_H = SCREEN_SIZE_Y / (n_upper - n_lower)     # time height constant
 
         for i in range(len(self.vcombinations[self.index])):
+            self.vcombinations[self.index][i].color = self.color[i]
             for j in range(len(self.vcombinations[self.index][i].vrects)):
                 size_rects = len(self.vcombinations[self.index][i].vrects[j])
                 for k in range(size_rects):

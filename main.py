@@ -76,18 +76,27 @@ class Ui_MainWindow(object):
         self.course_engine.selectCourse("ECIE 4398")
         self.course_engine.selectCourse("EECE 3102")
         self.course_engine.selectCourse("MANU 3318")
-        vcombinations = self.course_engine.getVCombinations()
+        vtblcourses = self.course_engine.getVTableCourses()
 
         # W = 345, H = 532
+        b_selected_courses = [
+            True,
+            True,
+            True,
+            True,
+            True,
+            True,
+            True,
+            True
+        ]
         table_engine = TableEngine()
-        table_engine.setVCombinations(vcombinations)
-        table_engine.selectCombinations(0)
-        combinations = table_engine.getResizedCombinations(345, 532)
+        table_engine.setVTblCourses(vtblcourses, b_selected_courses)
+        table_engine.setIndex(0)
+        combinations = table_engine.getCombinations(345, 532)
         for table in combinations:
             for rects in table.vrects:
                 for rect in rects:
                     self.ogl_table.addRect(rect.x, rect.y, rect.w, rect.h, HpRgbColor(255, 0, 0))
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))

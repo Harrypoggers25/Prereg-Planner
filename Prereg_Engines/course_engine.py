@@ -1,5 +1,5 @@
 from Prereg_Engines.kulliyah_engine import KulliyahEngine
-from Prereg_Engines.models import CourseTable, Counter
+from Prereg_Engines.models import CourseTable
 
 class CourseEngine:
     def __init__(self):
@@ -28,37 +28,13 @@ class CourseEngine:
         else:
             del self.selected_courses[code]
 
-    def getVCombinations(self):
-        tbl_vcourses = [] # separating sections per course
+    def getVTableCourses(self):
+        vtbl_vcourses = [] # separating sections per course
         for course in self.selected_courses.values():
             tbl_courses = []
             for sect in course.sects:
                 tbl_course = CourseTable(course.code, sect)
                 tbl_courses.append(tbl_course)
-            tbl_vcourses.append(tbl_courses)
+            vtbl_vcourses.append(tbl_courses)
 
-        vcombinations = []    # stores 2D list of course combinatons
-        counter = Counter(tbl_vcourses, -1)
-        while counter.increment():
-            tbl_combinations = []
-
-            for i in range(len(tbl_vcourses)):
-                tbl_course = tbl_vcourses[i][counter.get(i)]
-                if len(tbl_combinations) == 0:
-                    tbl_combinations.append(tbl_course)
-                    continue
-                elif self.isTablesCollide(tbl_course, tbl_combinations):
-                    break
-                tbl_combinations.append(tbl_course)
-
-            if len(tbl_combinations) < len(tbl_vcourses):   # collision occured
-                continue
-
-            vcombinations.append(tbl_combinations)
-        return vcombinations
-
-    def isTablesCollide(self, table, tbl_combinations):
-        for tbl_course in tbl_combinations:
-            if CourseTable.isTablesCollide(table, tbl_course):
-                return True
-        return False
+        return vtbl_vcourses

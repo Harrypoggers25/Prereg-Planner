@@ -29,7 +29,7 @@ class HpGlRect(HpObject):
         self.setPosition(x, y)
         self.setDimension(w, h)
 
-class HpGlText:
+class HpGlText(HpObject):
     def __init__(self, x, y, text, font, color, painter : QtGui.QPainter):
         HpObject.__init__(self, x, y, color)
         self.font = font

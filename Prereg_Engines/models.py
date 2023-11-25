@@ -126,13 +126,22 @@ class CourseTable:
                 n_time_const = 720 if n_time_const == 0 else 720
         return n_time_const
 
-class Rect:
+class Vector2n:
     def __init__(self):
         self.x = 0
         self.y = 0
+
+class Rect(Vector2n):
+    def __init__(self):
+        Vector2n.__init__(self)
         self.w = 0
         self.h = 0
-    
+
+class Text(Vector2n):
+    def __init__(self):
+        Vector2n.__init__(self)
+        self.val = ""
+
 class Counter:
     def __init__(self, varrs, start_offset : int):
         self.counter = [0] * len(varrs)

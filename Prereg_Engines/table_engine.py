@@ -1,13 +1,14 @@
 import copy
 
-from Prereg_Engines.models import CourseTable, Counter
-from HP_Framework.objects import HpRgbColor
+from Prereg_Engines.models import CourseTable, Counter, Text
+from HP_Framework.objects import  HpRgbColor
 
 class TableEngine():
     def __init__(self):
         self.vtblcourses = [] # stores 2d list of courses sorted by section
         self.vcombinations = [] # stores 2D list of course combinatons
         self.vvrects = []
+        self.texts = []
         self.bselected_courses = [] # list of boolean
         self.index = 0
         self.color = [
@@ -35,9 +36,18 @@ class TableEngine():
 
         self.generateCombinations()
 
+    def setBSelectCourses(self, bselected_courses):
+        if bselected_courses:
+            for i in range(len(self.bselected_courses)):
+                self.bselected_courses[i] = bselected_courses[i]
+            self.generateCombinations()
+        
+
     def generateCombinations(self):
         n_size = 0
         vtbl_courses = []
+        self.vcombinations = []
+        self.vvrects = []
         for i in range(len(self.vtblcourses)):
             if self.bselected_courses[i]:
                 vtbl_courses.append(self.vtblcourses[i])
@@ -61,8 +71,6 @@ class TableEngine():
 
             self.vcombinations.append(tbl_combinations)
 
-        self.vcombinations = self.vcombinations
-
         for combinations in self.vcombinations:
             n_vrects = []
             for table in combinations:
@@ -76,6 +84,8 @@ class TableEngine():
         self.index = index
 
     def getCombinations(self, SCREEN_SIZE_X, SCREEN_SIZE_Y):
+        self.texts = []
+
         n_vrects = self.vvrects[self.index]
         n_lower = n_upper = n_left = n_right = 0
 
@@ -102,12 +112,19 @@ class TableEngine():
                 size_rects = len(self.vcombinations[self.index][i].vrects[j])
                 for k in range(size_rects):
                     l = j * size_rects + k
-                    rect = self.vcombinations[self.index][i].vrects[j][k]
-                    
+
+                    tbl_course = self.vcombinations[self.index][i]
+                    rect = tbl_course.vrects[j][k]
                     rect.x = n_vrects[i][l].x * N_W
                     rect.y = (n_vrects[i][l].y - n_lower) * N_H
                     rect.w = N_W
                     rect.h = n_vrects[i][l].h * N_H
+
+                    text = Text()
+                    text.x = rect.x + rect.w / 2
+                    text.y = rect.y + rect.h / 2
+                    text.val = tbl_course.code
+                    self.texts.append(text)
 
         return self.vcombinations[self.index]
     

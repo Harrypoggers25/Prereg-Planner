@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QOpenGLWidget
 from OpenGL.GL import *
+from PyQt5.QtCore import QRectF
 from HP_Framework.objects import *
 
 class HpGlWidget(QOpenGLWidget):
@@ -44,11 +45,14 @@ class HpGlWidget(QOpenGLWidget):
         painter.beginNativePainting()
         painter.setPen(QtGui.QColor(text.color.r, text.color.g, text.color.b))
         painter.setFont(QtGui.QFont(text.font.family, text.font.size, text.font.weight, text.font.italic))
-        painter.drawText(QRect(text.x, text.y, text.width, text.height), Qt.AlignmentFlag.AlignLeft, text.val)
+        painter.drawText(QRectF(text.x, text.y, text.width, text.height), Qt.AlignmentFlag.AlignLeft, text.val)
         painter.endNativePainting()
 
     def addRect(self, x, y, w, h, color):
         self.rects.append(HpGlRect(x, y, w, h, color))
 
-    def addText(self, x, y, text, font, color):
-        self.texts.append(HpGlText(x, y, text, font, color, self))
+    def addText(self, x, y, text, font, color, bcentered = False):
+        gl_text = HpGlText(x, y, text, font, color, self)
+        if bcentered:
+            gl_text.setPosition(gl_text.x - gl_text.width / 2, gl_text.y - gl_text.height / 2)
+        self.texts.append(gl_text)

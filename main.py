@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from HP_Framework.graphics import HpGlWidget
 from Prereg_Engines.course_engine import CourseEngine
 from Prereg_Engines.table_engine import TableEngine
-from HP_Framework.objects import HpRgbColor
+from HP_Framework.objects import HpRgbColor, HpFont
 
 
 class Ui_MainWindow(object):
@@ -97,7 +97,10 @@ class Ui_MainWindow(object):
             for rects in table.vrects:
                 for rect in rects:
                     self.ogl_table.addRect(rect.x, rect.y, rect.w, rect.h, table.color)
-
+        font = HpFont("Roboto", 6, 600)
+        for text in table_engine.texts:
+            self.ogl_table.addText(text.x, text.y, text.val, font, HpRgbColor(255, 255, 255), True)
+            
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))

@@ -12,7 +12,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from HP_Framework.graphics import HpGlWidget
 from Prereg_Engines.course_engine import CourseEngine
 from Prereg_Engines.table_engine import TableEngine
-from HP_Framework.objects import HpRgbColor, HpFont
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -82,21 +81,28 @@ class Ui_MainWindow(object):
         self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        # ----------------------TESTING---------------------- #
+        # ----------------------IMPLEMENTATION---------------------- #
         self.course_engine = CourseEngine()
-        self.course_engine.loadCourses(7, 0, 0)
-        self.course_engine.selectCourse("ECIE 4101")
-        self.course_engine.selectCourse("ECIE 4311")
-        self.course_engine.selectCourse("ECIE 4312")
-        self.course_engine.selectCourse("ECIE 4313")
-        self.course_engine.selectCourse("ECIE 4351")
-        self.course_engine.selectCourse("ECIE 4398")
-        self.course_engine.selectCourse("EECE 3102")
-        self.course_engine.selectCourse("MANU 3318")
-        vtblcourses = self.course_engine.getVTableCourses()
-        
-        # W = 350, H = 532
+        self.course_engine.loadCourses(7, 0, 0) # Loads Engin Kulliyah's Subjects
+
+        # ----------------------TEST 1---------------------- #  4th year subjects
+        # self.course_engine.selectCourse("ECIE 4101")
+        # self.course_engine.selectCourse("ECIE 4311")
+        # self.course_engine.selectCourse("ECIE 4312")
+        # self.course_engine.selectCourse("ECIE 4313")
+        # self.course_engine.selectCourse("ECIE 4351")
+        # self.course_engine.selectCourse("ECIE 4398")
+        # self.course_engine.selectCourse("EECE 3102")
+        # self.course_engine.selectCourse("MANU 3318")
+
+        # ----------------------TEST 2---------------------- #  1st year subjects
+        self.course_engine.selectCourse('EECE 1312')
+        self.course_engine.selectCourse('EECE 1313')
+        self.course_engine.selectCourse('MATH 1320')
+        self.course_engine.selectCourse('MECH 1302')
+
         # print(f'Initial => W: {self.ogl_table.width()}, H: {self.ogl_table.height()}')
+        vtblcourses = self.course_engine.getVTableCourses()
         b_selected_courses = [
             True,
             True,
@@ -120,7 +126,6 @@ class Ui_MainWindow(object):
         self.btn_left.setText(_translate("MainWindow", "<"))
         self.btn_right.setText(_translate("MainWindow", ">"))
         self.lbl_index.setText(_translate("MainWindow", "? / ?"))
-
 
 if __name__ == "__main__":
     import sys

@@ -26,6 +26,8 @@ class HpGlWidget(QOpenGLWidget):
         glOrtho(0, w, h, 0, -1, 1)  # Flip the y-axis to position the origin at the top-left corner
         glMatrixMode(GL_MODELVIEW)
 
+        self.updateRenderTable(w, h)
+
     def paintGL(self):
         glClear(GL_COLOR_BUFFER_BIT)
         
@@ -95,16 +97,22 @@ class HpGlWidget(QOpenGLWidget):
 
             self.lbl_index.setText(f"{self.tbl_engine.index + 1} / {self.tbl_engine.getVCombinationsSize()}")
 
+    def updateRenderTable(self, w, h):
+        self.setCombinations(self.tbl_engine.getCombinations(w, h))
+        self.paintGL()
+
     def btnLeftPressed(self):
         if self.tbl_engine:
             if self.tbl_engine.index - 1 >= 0:
-                self.tbl_engine.setIndex(self.index - 1)
-            else:
-                print('reached minimum')    # TEMPORARY
+                self.tbl_engine.setIndex(self.tbl_engine.index - 1)
+                self.updateRenderTable(self.width(), self.height())
+            # else:
+            #     print('reached minimum')    # TEMPORARY
     
     def btnRightPressed(self):
         if self.tbl_engine:
             if self.tbl_engine.index + 1 < self.tbl_engine.getVCombinationsSize():
-                self.tbl_engine.setIndex(self.index + 1)
-            else:
-                print('reached maximum')    # TEMPORARY
+                self.tbl_engine.setIndex(self.tbl_engine.index + 1)
+                self.updateRenderTable(self.width(), self.height())
+            # else:
+            #     print('reached maximum')    # TEMPORARY

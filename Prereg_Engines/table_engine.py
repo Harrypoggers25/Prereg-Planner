@@ -35,15 +35,15 @@ class TableEngine():
             n_diff = len(self.vtblcourses) - len(self.color)
             self.color.extend(self.color[:n_diff])
 
-        self.generateCombinations()
+        self.generateVCombinations()
 
     def setBSelectCourses(self, bselected_courses):
         if bselected_courses:
             for i in range(len(self.bselected_courses)):
                 self.bselected_courses[i] = bselected_courses[i]
-            self.generateCombinations()
+            self.generateVCombinations()
         
-    def generateCombinations(self):
+    def generateVCombinations(self):
         n_size = 0
         vtbl_courses = []
         self.vcombinations = []
@@ -71,6 +71,7 @@ class TableEngine():
 
             self.vcombinations.append(tbl_combinations)
 
+        n_areas = []
         for combinations in self.vcombinations:
             n_vrects = []
             for table in combinations:
@@ -78,7 +79,22 @@ class TableEngine():
                 for rects in table.vrects:
                     n_rects.extend(copy.deepcopy(rects)) # same list, different reference
                 n_vrects.append(n_rects)
+            
+            n_b = TableEngine.getTableBoundaries(n_vrects)
+            n_areas.append((n_b['right'] - n_b['left'] + 1) * (n_b['upper'] - n_b['lower']))   # area
             self.vvrects.append(n_vrects)
+        
+        # sorting algorithm (by area)
+        for i in range(len(n_areas)):
+            if i == 0:
+                continue
+            for j in range(i):
+                if n_areas[i] == n_areas[j]:
+                    continue
+                if n_areas[i] < n_areas[j]:
+                    n_areas.insert(j, n_areas.pop(i))
+                    self.vcombinations.insert(j, self.vcombinations.pop(i))
+                    self.vvrects.insert(j, self.vvrects.pop(i))
 
     def setIndex(self, index):
         self.index = index
@@ -87,27 +103,7 @@ class TableEngine():
         self.texts = []
 
         n_vrects = self.vvrects[self.index]
-        n_b = {
-            'upper': 0, # 0
-            'right': 0, # 1
-            'lower': 0, # 2
-            'left': 0,  # 3
-        }
-
-        for rects in n_vrects:
-            for rect in rects:
-                if n_b['upper'] == 0 and n_b['right'] == 0 and n_b['lower'] == 0 and n_b['left'] == 0:
-                    n_b['lower'] = rect.y
-                    n_b['upper'] = rect.y + rect.h
-                    continue
-                if rect.y < n_b['lower']:
-                    n_b['lower'] = rect.y
-                if rect.y + rect.h > n_b['upper']:
-                    n_b['upper'] = rect.y + rect.h
-                if rect.x < n_b['left']:
-                    n_b['left'] = rect.x
-                if rect.x > n_b['right']:
-                    n_b['right'] = rect.x
+        n_b = TableEngine.getTableBoundaries(n_vrects)
 
         N_OFFSET = Vector2n(30, 21)
         N_SIZE = Vector2n(SCREEN_SIZE_X, SCREEN_SIZE_Y)
@@ -124,6 +120,7 @@ class TableEngine():
 
         return self.vcombinations[self.index]
     
+
     def setRectFormat(self, N_SIZE, N_OFFSET, n_b):
         N_W = (N_SIZE.x - N_OFFSET.x) / (n_b['right'] - n_b['left'] + 1)  # day width constant
         str_days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
@@ -182,11 +179,34 @@ class TableEngine():
 
     def getVCombinationsSize(self):
         return len(self.vcombinations)
-
-
+    
     @staticmethod
     def isTablesCollide(table, tbl_combinations):
         for tbl_course in tbl_combinations:
             if CourseTable.isTablesCollide(table, tbl_course):
                 return True
-        return False 
+        return False
+    
+    @staticmethod
+    def getTableBoundaries(n_vrects):
+        n_b = {
+            'upper': 0, # 0
+            'right': 0, # 1
+            'lower': 0, # 2
+            'left': 0,  # 3
+        }
+        for rects in n_vrects:
+            for rect in rects:
+                if n_b['upper'] == 0 and n_b['right'] == 0 and n_b['lower'] == 0 and n_b['left'] == 0:
+                    n_b['lower'] = rect.y
+                    n_b['upper'] = rect.y + rect.h
+                    continue
+                if rect.y < n_b['lower']:
+                    n_b['lower'] = rect.y
+                if rect.y + rect.h > n_b['upper']:
+                    n_b['upper'] = rect.y + rect.h
+                if rect.x < n_b['left']:
+                    n_b['left'] = rect.x
+                if rect.x > n_b['right']:
+                    n_b['right'] = rect.x
+        return n_b

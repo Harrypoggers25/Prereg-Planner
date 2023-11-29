@@ -127,9 +127,13 @@ class CourseTable:
         return n_time_const
 
 class Vector2n:
-    def __init__(self):
-        self.x = 0
-        self.y = 0
+    def __init__(self, x = 0, y = 0):
+        self.x = x
+        self.y = y
+    
+    def setParameter(self, x, y):
+        self.x = x
+        self.y = y
 
 class Rect(Vector2n):
     def __init__(self):

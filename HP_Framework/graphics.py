@@ -51,8 +51,14 @@ class HpGlWidget(QOpenGLWidget):
     def addRect(self, x, y, w, h, color):
         self.rects.append(HpGlRect(x, y, w, h, color))
 
-    def addText(self, x, y, text, font, color, bcentered = False):
+    def addText(self, x, y, text, font, color, bcenterx = False, bcentery = False):
         gl_text = HpGlText(x, y, text, font, color, self)
-        if bcentered:
-            gl_text.setPosition(gl_text.x - gl_text.width / 2, gl_text.y - gl_text.height / 2)
+        if bcenterx:
+            x = gl_text.x - gl_text.width / 2
+        if bcentery:
+            y = gl_text.y - gl_text.height / 2
+        if bcenterx or bcentery:
+            gl_text.setPosition(x, y)
+        # if bcenterx and not bcentery:
+        #     print(f'X: {gl_text.x}, Y: {gl_text.y}, W: {gl_text.width}, H: {gl_text.height}')
         self.texts.append(gl_text)

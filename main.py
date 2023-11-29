@@ -97,10 +97,14 @@ class Ui_MainWindow(object):
             for rects in table.vrects:
                 for rect in rects:
                     self.ogl_table.addRect(rect.x, rect.y, rect.w, rect.h, table.color)
-        font = HpFont("Roboto", 6, 600)
-        for text in table_engine.texts:
+                    # print(f'{table.code} => X: {rect.x}, Y: {rect.y}, W: {rect.w}, H: {rect.h}')
+        font = HpFont("Roboto", 10, 600)
+        for text in table_engine.texts[0]:
             self.ogl_table.addText(text.x, text.y, text.val, font, HpRgbColor(255, 255, 255), True)
-            
+        font = HpFont("Roboto", 6, 600)
+        for text in table_engine.texts[1]:
+            self.ogl_table.addText(text.x, text.y, text.val, font, HpRgbColor(255, 255, 255), True, True)
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))

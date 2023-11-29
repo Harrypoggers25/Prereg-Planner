@@ -1,7 +1,8 @@
-import copy
+import copy, math
 
 from Prereg_Engines.models import CourseTable, Counter, Text
 from HP_Framework.objects import  HpRgbColor
+from Prereg_Engines.models import Vector2n
 
 class TableEngine():
     def __init__(self):
@@ -42,7 +43,6 @@ class TableEngine():
                 self.bselected_courses[i] = bselected_courses[i]
             self.generateCombinations()
         
-
     def generateCombinations(self):
         n_size = 0
         vtbl_courses = []
@@ -87,25 +87,75 @@ class TableEngine():
         self.texts = []
 
         n_vrects = self.vvrects[self.index]
-        n_lower = n_upper = n_left = n_right = 0
+        n_b = {
+            'upper': 0, # 0
+            'right': 0, # 1
+            'lower': 0, # 2
+            'left': 0,  # 3
+        }
 
         for rects in n_vrects:
             for rect in rects:
-                if n_lower == 0 and n_upper == 0 and n_left == 0 and n_right == 0:
-                    n_lower = rect.y
-                    n_upper = rect.y + rect.h
+                if n_b['upper'] == 0 and n_b['right'] == 0 and n_b['lower'] == 0 and n_b['left'] == 0:
+                    n_b['lower'] = rect.y
+                    n_b['upper'] = rect.y + rect.h
                     continue
-                if rect.y < n_lower:
-                    n_lower = rect.y
-                if rect.y + rect.h > n_upper:
-                    n_upper = rect.y + rect.h
-                if rect.x < n_left:
-                    n_left = rect.x
-                if rect.x > n_right:
-                    n_right = rect.x
-        N_W = SCREEN_SIZE_X / (n_right - n_left + 1)  # day width constant
-        N_H = SCREEN_SIZE_Y / (n_upper - n_lower)     # time height constant
+                if rect.y < n_b['lower']:
+                    n_b['lower'] = rect.y
+                if rect.y + rect.h > n_b['upper']:
+                    n_b['upper'] = rect.y + rect.h
+                if rect.x < n_b['left']:
+                    n_b['left'] = rect.x
+                if rect.x > n_b['right']:
+                    n_b['right'] = rect.x
 
+        N_OFFSET = Vector2n(22, 21)
+        N_SIZE = Vector2n(SCREEN_SIZE_X, SCREEN_SIZE_Y)
+
+        args = self.setRectFormat(N_SIZE, N_OFFSET, n_b)
+        
+        N_SIZE.setParameter(SCREEN_SIZE_X - N_OFFSET.x, SCREEN_SIZE_Y - N_OFFSET.y)
+        N_H = args[2]
+        
+        N_OFFSET.y = N_OFFSET.y + N_OFFSET.y / 2 + args[0] * N_H
+        N_SIZE.y = N_SIZE.y - N_OFFSET.y - args[1] * N_H
+
+        self.setRectTable(N_SIZE, N_OFFSET, n_b, n_vrects, args[2])
+
+        return self.vcombinations[self.index]
+    
+    def setRectFormat(self, N_SIZE, N_OFFSET, n_b):
+        N_W = (N_SIZE.x - N_OFFSET.x) / (n_b['right'] - n_b['left'] + 1)  # day width constant
+        str_days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
+        texts = []
+        for i in range(n_b['left'], n_b['right'] + 1):
+            text = Text()
+            text.x = N_W * ((i - n_b['left']) + 0.5) + N_OFFSET.x
+            text.y = 0
+            text.val = str_days[i]
+            texts.append(text)
+
+        N_LOWER = int(math.floor(n_b['lower'] / 60))
+        N_UPPER = int(math.ceil(n_b['upper'] / 60))
+        N_H = (N_SIZE.y - N_OFFSET.y) / ((N_UPPER - N_LOWER + 1) * 60)     # time height constant
+        for i in range(N_LOWER, N_UPPER + 1):
+            str_i = str(i)
+            if len(str_i) < 2:
+                str_i = "0" + str_i
+            text = Text()
+            text.x = N_OFFSET.x / 2
+            text.y = (i - N_LOWER) * 60 * N_H + N_OFFSET.y
+            text.val = str_i
+            texts.append(text)
+        self.texts.append(texts)
+
+        return [(n_b['lower'] - N_LOWER * 60), (N_UPPER * 60 - n_b['upper']), N_H]
+
+    def setRectTable(self, N_SIZE, N_OFFSET, n_b, n_vrects, N_H):
+        N_W = N_SIZE.x / (n_b['right'] - n_b['left'] + 1)  # day width constant
+        # N_H = N_SIZE.y / (n_b['upper'] - n_b['lower'])     # time height constant
+
+        texts = []
         for i in range(len(self.vcombinations[self.index])):
             self.vcombinations[self.index][i].color = self.color[i]
             for j in range(len(self.vcombinations[self.index][i].vrects)):
@@ -115,8 +165,8 @@ class TableEngine():
 
                     tbl_course = self.vcombinations[self.index][i]
                     rect = tbl_course.vrects[j][k]
-                    rect.x = n_vrects[i][l].x * N_W
-                    rect.y = (n_vrects[i][l].y - n_lower) * N_H
+                    rect.x = (n_vrects[i][l].x - n_b['left']) * N_W + N_OFFSET.x
+                    rect.y = (n_vrects[i][l].y - n_b['lower']) * N_H + N_OFFSET.y
                     rect.w = N_W
                     rect.h = n_vrects[i][l].h * N_H
 
@@ -124,10 +174,12 @@ class TableEngine():
                     text.x = rect.x + rect.w / 2
                     text.y = rect.y + rect.h / 2
                     text.val = tbl_course.code
-                    self.texts.append(text)
+                    texts.append(text)
+        self.texts.append(texts)
 
-        return self.vcombinations[self.index]
-    
+    def getVTblCourses(self):
+        return self.vtblcourses
+
     @staticmethod
     def isTablesCollide(table, tbl_combinations):
         for tbl_course in tbl_combinations:

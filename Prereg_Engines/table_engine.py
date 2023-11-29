@@ -109,7 +109,7 @@ class TableEngine():
                 if rect.x > n_b['right']:
                     n_b['right'] = rect.x
 
-        N_OFFSET = Vector2n(22, 21)
+        N_OFFSET = Vector2n(30, 21)
         N_SIZE = Vector2n(SCREEN_SIZE_X, SCREEN_SIZE_Y)
 
         args = self.setRectFormat(N_SIZE, N_OFFSET, n_b)
@@ -179,6 +179,10 @@ class TableEngine():
 
     def getVTblCourses(self):
         return self.vtblcourses
+
+    def getVCombinationsSize(self):
+        return len(self.vcombinations)
+
 
     @staticmethod
     def isTablesCollide(table, tbl_combinations):

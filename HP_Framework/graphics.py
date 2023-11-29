@@ -1,13 +1,17 @@
 from PyQt5.QtWidgets import QOpenGLWidget
+from PyQt5 import QtWidgets
 from OpenGL.GL import *
 from PyQt5.QtCore import QRectF
 from HP_Framework.objects import *
+from Prereg_Engines.table_engine import TableEngine
 
 class HpGlWidget(QOpenGLWidget):
     def __init__(self, parent=None):
         QOpenGLWidget.__init__(self, parent)
         self.rects = []
         self.texts = []
+        self.tbl_engine = None
+        self.lbl_index = None
 
     def initializeGL(self):
         glDisable(GL_DEPTH_TEST)
@@ -32,6 +36,7 @@ class HpGlWidget(QOpenGLWidget):
         for text in self.texts:
             self.renderText(text, painter)
 
+    ################################## LOW LEVEL IMPLEMETATION ##################################
     def renderRect(self, rect : HpGlRect):
         glColor3f(rect.color.r / 255, rect.color.g / 255, rect.color.b/ 255)
         glBegin(GL_QUADS)
@@ -62,3 +67,44 @@ class HpGlWidget(QOpenGLWidget):
         # if bcenterx and not bcentery:
         #     print(f'X: {gl_text.x}, Y: {gl_text.y}, W: {gl_text.width}, H: {gl_text.height}')
         self.texts.append(gl_text)
+    
+    ################################## HIGH LEVEL IMPLEMETATION ##################################
+    def setTableEngine(self, table_engine : TableEngine, btn_left : QtWidgets.QPushButton, btn_right : QtWidgets.QPushButton, lbl_index : QtWidgets.QLabel):
+        self.tbl_engine = table_engine
+        self.lbl_index = lbl_index
+        btn_left.clicked.connect(lambda: self.btnLeftPressed())
+        btn_right.clicked.connect(lambda: self.btnRightPressed())
+
+        table_engine.setIndex(0)
+    
+    def setCombinations(self, combinations):
+        self.rects.clear()
+        self.texts.clear()
+        if self.tbl_engine:
+            for table in combinations:
+                for rects in table.vrects:
+                    for rect in rects:
+                        self.addRect(rect.x, rect.y, rect.w, rect.h, table.color)
+                        # print(f'{table.code} => X: {rect.x}, Y: {rect.y}, W: {rect.w}, H: {rect.h}')
+            font = HpFont("Roboto", 10, 600)
+            for text in self.tbl_engine.texts[0]:
+                self.addText(text.x, text.y, text.val, font, HpRgbColor(255, 255, 255), True)
+            font = HpFont("Roboto", 6, 600)
+            for text in self.tbl_engine.texts[1]:
+                self.addText(text.x, text.y, text.val, font, HpRgbColor(255, 255, 255), True, True)
+
+            self.lbl_index.setText(f"{self.tbl_engine.index + 1} / {self.tbl_engine.getVCombinationsSize()}")
+
+    def btnLeftPressed(self):
+        if self.tbl_engine:
+            if self.tbl_engine.index - 1 >= 0:
+                self.tbl_engine.setIndex(self.index - 1)
+            else:
+                print('reached minimum')    # TEMPORARY
+    
+    def btnRightPressed(self):
+        if self.tbl_engine:
+            if self.tbl_engine.index + 1 < self.tbl_engine.getVCombinationsSize():
+                self.tbl_engine.setIndex(self.index + 1)
+            else:
+                print('reached maximum')    # TEMPORARY

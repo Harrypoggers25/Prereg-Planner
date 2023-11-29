@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>789</width>
-    <height>600</height>
+    <width>738</width>
+    <height>609</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Prereg Planner</string>
   </property>
   <widget class="QWidget" name="wgt_central">
    <layout class="QGridLayout" name="gridLayout">
@@ -37,12 +37,62 @@
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QFrame" name="frm_left">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
+          <widget class="QPushButton" name="btn_left">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>20</y>
+             <width>93</width>
+             <height>28</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>&lt;</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btn_right">
+           <property name="geometry">
+            <rect>
+             <x>100</x>
+             <y>20</y>
+             <width>93</width>
+             <height>28</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>&gt;</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="lbl_index">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>50</y>
+             <width>181</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>? / ?</string>
+           </property>
+          </widget>
          </widget>
         </item>
         <item>
@@ -55,7 +105,14 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
            <item row="0" column="0">
-            <widget class="QOpenGLWidget" name="ogl_table"/>
+            <widget class="QOpenGLWidget" name="ogl_table">
+             <property name="minimumSize">
+              <size>
+               <width>350</width>
+               <height>532</height>
+              </size>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>

@@ -1,4 +1,1 @@
-HP_Framework/__pycache__/objects.cpython-312.pyc
-Prereg_Engines/__pycache__/course_engine.cpython-312.pyc
-Prereg_Engines/__pycache__/models.cpython-312.pyc
-Prereg_Engines/__pycache__/table_engine.cpython-312.pyc
+*.pyc

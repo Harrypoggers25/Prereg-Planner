@@ -27,6 +27,7 @@ class CourseEngine:
             self.loaded_courses[code] = self.selected_courses.pop(code)
         else:
             del self.selected_courses[code]
+        self.loaded_courses = dict(sorted(self.loaded_courses.items()))
 
     def getVTableCourses(self):
         vtbl_courses = [] # separating sections per course
@@ -60,6 +61,7 @@ class CourseEngine:
         for course in self.selected_courses.values():
             n_CHs.append(course.ch)
         return n_CHs
+    
     @staticmethod
     def isSectionEqual(section1, section2):
         info1 = section1.infos[:]

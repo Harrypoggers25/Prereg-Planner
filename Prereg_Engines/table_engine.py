@@ -6,6 +6,7 @@ from Prereg_Engines.models import Vector2n
 
 class TableEngine():
     def __init__(self):
+        self.total_ch = 0
         self.vtblcourses = [] # stores 2d list of courses sorted by section
         self.vcombinations = [] # stores 2D list of course combinatons
         self.vvrects = []
@@ -27,9 +28,13 @@ class TableEngine():
             HpRgbColor(241, 85, 98),    # P_RED
         ]
 
-    def setVTblCourses(self, vtblcourses, bselected_courses = None):
+    def setVTblCourses(self, vtblcourses, n_chs, bselected_courses = None):
         self.vtblcourses = vtblcourses
         self.bselected_courses = bselected_courses if bselected_courses else [True] * len(self.vtblcourses)
+
+        for i in range(len(n_chs)):
+            if self.bselected_courses[i]:
+                self.total_ch += n_chs[i]
 
         if len(self.color) < len(self.vtblcourses):
             n_diff = len(self.vtblcourses) - len(self.color)

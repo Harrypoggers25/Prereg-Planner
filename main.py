@@ -81,7 +81,10 @@ class Ui_MainWindow(object):
         self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        # ----------------------IMPLEMENTATION---------------------- #
+        #************************IMPLEMENTATION************************#
+
+        ############################ PAGE 1 ############################
+        
         self.course_engine = CourseEngine()
         self.course_engine.loadCourses(7, 0, 0) # Loads Engin Kulliyah's Subjects
 
@@ -96,25 +99,36 @@ class Ui_MainWindow(object):
         # self.course_engine.selectCourse("MANU 3318")
 
         # ----------------------TEST 2---------------------- #  1st year subjects
+        self.course_engine.selectCourse('EECE 1101')
         self.course_engine.selectCourse('EECE 1312')
         self.course_engine.selectCourse('EECE 1313')
         self.course_engine.selectCourse('MATH 1320')
         self.course_engine.selectCourse('MECH 1302')
 
-        # print(f'Initial => W: {self.ogl_table.width()}, H: {self.ogl_table.height()}')
-        vtblcourses = self.course_engine.getVTableCourses()
+        self.course_engine.deselectCourse('EECE 1101')
+        
+        ############################ PAGE 2 ############################
+
+        vtblcourses = self.course_engine.getVTableCourses() # vector list of course tables
+        n_chs = self.course_engine.getCHs() # list of credit hours
+        # b_selected_courses = [
+        #     True,
+        #     True,
+        #     True,
+        #     True,
+        #     True,
+        #     True,
+        #     True,
+        #     True,
+        # ]
         b_selected_courses = [
             True,
             True,
             True,
             True,
-            True,
-            True,
-            True,
-            True
         ]
         table_engine = TableEngine()
-        table_engine.setVTblCourses(vtblcourses, b_selected_courses)
+        table_engine.setVTblCourses(vtblcourses, n_chs, b_selected_courses)
         
         combinations = table_engine.getCombinations(self.ogl_table.width(), self.ogl_table.height())
         self.ogl_table.setTableEngine(table_engine, self.btn_left, self.btn_right, self.lbl_index)

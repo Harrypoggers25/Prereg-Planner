@@ -29,12 +29,49 @@ class CourseEngine:
             del self.selected_courses[code]
 
     def getVTableCourses(self):
-        vtbl_vcourses = [] # separating sections per course
+        vtbl_courses = [] # separating sections per course
         for course in self.selected_courses.values():
             tbl_courses = []
-            for sect in course.sects:
-                tbl_course = CourseTable(course.code, sect)
-                tbl_courses.append(tbl_course)
-            vtbl_vcourses.append(tbl_courses)
+            tbl_course = None
+            sect = None
+            sections = course.sects
+            i = 0
+            while len(sections) != 0:
+                if not tbl_course:
+                    sect = sections.pop(0)
+                    tbl_course = CourseTable(course.code, sect)
+                    continue
+                if i >= len(sections):
+                    tbl_courses.append(tbl_course)
+                    tbl_course = None
+                    sect = None
+                    i = 0
+                elif CourseEngine.isSectionEqual(sections[i], sect):
+                    tbl_course.sects.append(sections.pop(i).val)
+                    i = 0
+                else:
+                    i += 1
+            tbl_courses.append(tbl_course)
+            vtbl_courses.append(tbl_courses)
+        return vtbl_courses
+    
+    def getCHs(self):
+        n_CHs = []
+        for course in self.selected_courses.values():
+            n_CHs.append(course.ch)
+        return n_CHs
+    @staticmethod
+    def isSectionEqual(section1, section2):
+        info1 = section1.infos[:]
+        info2 = section2.infos[:]
 
-        return vtbl_vcourses
+        if len(info1) != len(info2):
+            return False
+        for i in range(len(info1)):
+            for j in range(len(info2)):
+                if info1[i].day == info2[j].day and info1[i].time == info2[j].time:
+                    info1.pop(i)
+                    info2.pop(j)
+                    i = j = 0
+        return len(info1) == 0 and len(info2) == 0
+

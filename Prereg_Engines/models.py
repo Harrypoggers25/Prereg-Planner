@@ -13,6 +13,7 @@ class Course:
         self.param = ""
         self.title = ""
         self.code = ""
+        self.ch = 0
         self.sects = []
 
 class CourseSection:
@@ -29,7 +30,7 @@ class CourseInfo:
 class CourseTable:
     def __init__(self, s_code, sect):
         self.code = s_code
-        self.sect = sect.val  # string form
+        self.sects = [sect.val]  # string form
         self.vrects = []
 
         for info in sect.infos:

@@ -10,6 +10,7 @@ class Session:
 
 class Course:
     def __init__(self):
+        self.index = None
         self.param = ""
         self.title = ""
         self.code = ""

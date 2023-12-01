@@ -6,14 +6,12 @@ class CourseEngine:
         self.loaded_courses = dict()
         self.selected_courses = dict()
         self.current_param = ""             # to remove duplicates between loaded and selected courses
+        self.kulliyah_engine = KulliyahEngine()
 
     def loadCourses(self, n_kulliyah : int | None, n_session : int | None, n_ctype : int | None):
-        kulliyah_engine = KulliyahEngine()
-        kulliyah_engine.setParam(n_kulliyah=n_kulliyah, n_session=n_session, n_ctype=n_ctype)
+        self.kulliyah_engine.setParam(n_kulliyah=n_kulliyah, n_session=n_session, n_ctype=n_ctype)
         self.current_param = f"{n_kulliyah}_{n_session}_{n_ctype}"
-        self.loaded_courses = kulliyah_engine.getCourses()
-
-        del kulliyah_engine
+        self.loaded_courses = self.kulliyah_engine.getCourses()
 
         for code in self.selected_courses:
             if code in self.loaded_courses:
@@ -62,6 +60,12 @@ class CourseEngine:
             n_CHs.append(course.ch)
         return n_CHs
     
+    def getKulliyahs(self):
+        return [kulliyah.name for kulliyah in self.kulliyah_engine.kulliyahs]
+
+    def getSessions(self):
+        return [f"Sem {session.sem}, {session.year}" for session in self.kulliyah_engine.sessions]
+
     @staticmethod
     def isSectionEqual(section1, section2):
         info1 = section1.infos[:]

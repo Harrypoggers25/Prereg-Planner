@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from HP_Framework.graphics import HpGlWidget
+from HP_Framework.graphics import HpGlWidget, HpTableWidget
 from Prereg_Engines.course_engine import CourseEngine
 from Prereg_Engines.table_engine import TableEngine
 
@@ -69,25 +69,6 @@ class Ui_MainWindow(object):
         self.cb_kulliyah.setObjectName("cb_kulliyah")
         self.horizontalLayout_4.addWidget(self.cb_kulliyah)
         self.horizontalLayout_2.addWidget(self.frm_kulliyah)
-        self.frm_type = QtWidgets.QFrame(self.frm_top_left_top)
-        self.frm_type.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frm_type.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frm_type.setObjectName("frm_type")
-        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.frm_type)
-        self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        self.lbl_type = QtWidgets.QLabel(self.frm_type)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        font.setBold(True)
-        font.setWeight(75)
-        self.lbl_type.setFont(font)
-        self.lbl_type.setObjectName("lbl_type")
-        self.horizontalLayout_5.addWidget(self.lbl_type)
-        self.cb_type = QtWidgets.QComboBox(self.frm_type)
-        self.cb_type.setObjectName("cb_type")
-        self.horizontalLayout_5.addWidget(self.cb_type)
-        self.horizontalLayout_2.addWidget(self.frm_type)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
         self.verticalLayout_2.addWidget(self.frm_top_left_top)
@@ -117,6 +98,25 @@ class Ui_MainWindow(object):
         self.cb_session.setObjectName("cb_session")
         self.horizontalLayout_7.addWidget(self.cb_session)
         self.horizontalLayout_6.addWidget(self.frm_session)
+        self.frm_type = QtWidgets.QFrame(self.frm_top_left_bottom)
+        self.frm_type.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frm_type.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frm_type.setObjectName("frm_type")
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.frm_type)
+        self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.lbl_type = QtWidgets.QLabel(self.frm_type)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.lbl_type.setFont(font)
+        self.lbl_type.setObjectName("lbl_type")
+        self.horizontalLayout_5.addWidget(self.lbl_type)
+        self.cb_type = QtWidgets.QComboBox(self.frm_type)
+        self.cb_type.setObjectName("cb_type")
+        self.horizontalLayout_5.addWidget(self.cb_type)
+        self.horizontalLayout_6.addWidget(self.frm_type)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_6.addItem(spacerItem1)
         self.verticalLayout_2.addWidget(self.frm_top_left_bottom)
@@ -193,10 +193,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_9.addWidget(self.tb_search)
         self.horizontalLayout_8.addWidget(self.frm_search)
         self.gridLayout_5.addWidget(self.frm_loaded_courses_header, 0, 0, 1, 1)
-        self.lwgt_loaded_courses = QtWidgets.QListWidget(self.frm_bottom)
-        self.lwgt_loaded_courses.setMinimumSize(QtCore.QSize(323, 0))
-        self.lwgt_loaded_courses.setObjectName("lwgt_loaded_courses")
-        self.gridLayout_5.addWidget(self.lwgt_loaded_courses, 1, 0, 1, 1)
         self.lbl_selected_courses = QtWidgets.QLabel(self.frm_bottom)
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -205,10 +201,18 @@ class Ui_MainWindow(object):
         self.lbl_selected_courses.setFont(font)
         self.lbl_selected_courses.setObjectName("lbl_selected_courses")
         self.gridLayout_5.addWidget(self.lbl_selected_courses, 0, 1, 1, 1)
-        self.lwgt_selected_courses = QtWidgets.QListWidget(self.frm_bottom)
-        self.lwgt_selected_courses.setMinimumSize(QtCore.QSize(323, 0))
-        self.lwgt_selected_courses.setObjectName("lwgt_selected_courses")
-        self.gridLayout_5.addWidget(self.lwgt_selected_courses, 1, 1, 1, 1)
+        self.twgt_loaded_courses = HpTableWidget(self.frm_bottom)
+        self.twgt_loaded_courses.setMinimumSize(QtCore.QSize(323, 0))
+        self.twgt_loaded_courses.setObjectName("twgt_loaded_courses")
+        self.twgt_loaded_courses.setColumnCount(0)
+        self.twgt_loaded_courses.setRowCount(0)
+        self.gridLayout_5.addWidget(self.twgt_loaded_courses, 1, 0, 1, 1)
+        self.twgt_selected_courses = HpTableWidget(self.frm_bottom)
+        self.twgt_selected_courses.setMinimumSize(QtCore.QSize(323, 0))
+        self.twgt_selected_courses.setObjectName("twgt_selected_courses")
+        self.twgt_selected_courses.setColumnCount(0)
+        self.twgt_selected_courses.setRowCount(0)
+        self.gridLayout_5.addWidget(self.twgt_selected_courses, 1, 1, 1, 1)
         self.verticalLayout.addWidget(self.frm_bottom)
         self.swgt_1.addWidget(self.wgt_page1)
         self.wgt_page2 = QtWidgets.QWidget()
@@ -279,8 +283,8 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Prereg Planner"))
         self.lbl_kulliyah.setText(_translate("MainWindow", "Kulliyah"))
-        self.lbl_type.setText(_translate("MainWindow", "Type"))
         self.lbl_session.setText(_translate("MainWindow", "Session"))
+        self.lbl_type.setText(_translate("MainWindow", "Type"))
         self.btn_load_courses.setText(_translate("MainWindow", "Load courses"))
         self.lbl_or.setText(_translate("MainWindow", "or"))
         self.btn_open_file.setText(_translate("MainWindow", "Open file"))
@@ -290,49 +294,77 @@ class Ui_MainWindow(object):
         self.btn_right.setText(_translate("MainWindow", ">"))
         self.btn_left.setText(_translate("MainWindow", "<"))
         self.lbl_index.setText(_translate("MainWindow", "? / ?"))
-
+    
     def run(self):
         #************************IMPLEMENTATION************************#
         ############################ PAGE 1 ############################
         
         self.course_engine = CourseEngine()
-        self.course_engine.loadCourses(7, 0, 0) # Loads Engin Kulliyah's Subjects
-        # ----------------------TEST 1---------------------- #  4th year subjects
-        # self.course_engine.selectCourse("ECIE 4101")
-        # self.course_engine.selectCourse("ECIE 4311")
-        # self.course_engine.selectCourse("ECIE 4312")
-        # self.course_engine.selectCourse("ECIE 4313")
-        # self.course_engine.selectCourse("ECIE 4351")
-        # self.course_engine.selectCourse("ECIE 4398")
-        # self.course_engine.selectCourse("EECE 3102")
-        # self.course_engine.selectCourse("MANU 3318")
-        # ----------------------TEST 2---------------------- #  1st year subjects
-        self.course_engine.selectCourse('EECE 1101')
-        self.course_engine.selectCourse('EECE 1312')
-        self.course_engine.selectCourse('EECE 1313')
-        self.course_engine.selectCourse('MATH 1320')
-        self.course_engine.selectCourse('MECH 1302')
-        self.course_engine.deselectCourse('EECE 1101')
+
+        self.cb_kulliyah.addItems(self.course_engine.getKulliyahs())
+        self.cb_session.addItems(self.course_engine.getSessions())
+        self.cb_type.addItems(['UNDERGRADUATE', 'POSTGRADUATE'])
         
-        ############################ PAGE 2 ############################
-        vtblcourses = self.course_engine.getVTableCourses() # vector list of course tables
-        n_chs = self.course_engine.getCHs() # list of credit hours
-        b_selected_courses = [
-            True,
-            True,
-            True,
-            True,
-            True,
-            True,
-            True,
-            True,
-        ]
-        table_engine = TableEngine()
-        table_engine.setVTblCourses(vtblcourses, n_chs, b_selected_courses)
+        self.twgt_loaded_courses.setTableType('select')
+        self.btn_load_courses.clicked.connect(lambda: self.btn_load_courses_clicked())
+
+        self.twgt_selected_courses.setTableType('deselect')
+
+        # self.course_engine.loadCourses(7, 0, 0) # Loads Engin Kulliyah's Subjects
+        # # ----------------------TEST 1---------------------- #  4th year subjects
+        # # self.course_engine.selectCourse("ECIE 4101")
+        # # self.course_engine.selectCourse("ECIE 4311")
+        # # self.course_engine.selectCourse("ECIE 4312")
+        # # self.course_engine.selectCourse("ECIE 4313")
+        # # self.course_engine.selectCourse("ECIE 4351")
+        # # self.course_engine.selectCourse("ECIE 4398")
+        # # self.course_engine.selectCourse("EECE 3102")
+        # # self.course_engine.selectCourse("MANU 3318")
+        # # ----------------------TEST 2---------------------- #  1st year subjects
+        # self.course_engine.selectCourse('EECE 1101')
+        # self.course_engine.selectCourse('EECE 1312')
+        # self.course_engine.selectCourse('EECE 1313')
+        # self.course_engine.selectCourse('MATH 1320')
+        # self.course_engine.selectCourse('MECH 1302')
+        # self.course_engine.deselectCourse('EECE 1101')
         
-        combinations = table_engine.getCombinations(self.ogl_table.width(), self.ogl_table.height())
-        self.ogl_table.setTableEngine(table_engine, self.btn_left, self.btn_right, self.lbl_index)
-        self.ogl_table.setCombinations(combinations)
+        # ############################ PAGE 2 ############################
+        # vtblcourses = self.course_engine.getVTableCourses() # vector list of course tables
+        # n_chs = self.course_engine.getCHs() # list of credit hours
+        # b_selected_courses = [
+        #     True,
+        #     True,
+        #     True,
+        #     True,
+        #     True,
+        #     True,
+        #     True,
+        #     True,
+        # ]
+        # table_engine = TableEngine()
+        # table_engine.setVTblCourses(vtblcourses, n_chs, b_selected_courses)
+        
+        # combinations = table_engine.getCombinations(self.ogl_table.width(), self.ogl_table.height())
+        # self.ogl_table.setTableEngine(table_engine, self.btn_left, self.btn_right, self.lbl_index)
+        # self.ogl_table.setCombinations(combinations)
+    
+    # BUTTON EVENTS
+    def btn_load_courses_clicked(self):
+        n1 = self.cb_kulliyah.currentIndex()
+        n2 = self.cb_session.currentIndex()
+        n3 = self.cb_type.currentIndex()
+
+        self.course_engine.loadCourses(n1, n2, n3)
+        self.twgt_loaded_courses.setRowCount(0)
+        for code in self.course_engine.loaded_courses.keys():
+            def rtnlambda(c):
+                return lambda: self.btn_add_course_clicked(c)
+            self.twgt_loaded_courses.addItem(code, self.course_engine.loaded_courses[code].title, "+", rtnlambda(code))
+
+
+    def btn_add_course_clicked(self, code):
+        self.course_engine.selectCourse(code)
+        self.twgt_selected_courses.addItem(code, self.course_engine.selected_courses[code].title, "-")
 
 if __name__ == "__main__":
     import sys

@@ -116,3 +116,42 @@ class HpGlWidget(QOpenGLWidget):
                 self.updateRenderTable(self.width(), self.height())
             # else:
             #     print('reached maximum')    # TEMPORARY
+
+class HpTableWidget(QtWidgets.QTableWidget):
+    def __init__(self, parent=None):
+        QtWidgets.QTableWidget.__init__(self, parent)
+        self.horizontalHeader().hide()
+        self.verticalHeader().hide()
+
+    def setTableType(self, type):
+        self.setColumnCount(3)
+        self.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
+        self.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        self.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
+        self.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        
+        if type == "select":
+            self.setStyleSheet("QTableWidget, QPushButton, QLabel { border: 1px solid black; }"
+                               "QPushButton { background-color: #cdea8c; }"
+                               "QPushButton::pressed { background-color: #9aad49; }")
+        elif type == "deselect":
+            self.setStyleSheet("QTableWidget, QPushButton, QLabel { border: 1px solid black; }"
+                               "QPushButton { background-color: #fecbcc; }"
+                               "QPushButton::pressed { background-color: #b87b7d; }")
+
+    def addItem(self, str1, str2, str3, func=None):
+        row_position = self.rowCount()
+        self.insertRow(row_position)
+
+        lbl1 = QtWidgets.QLabel(str1)
+
+        lbl2 = QtWidgets.QLabel(str2)
+        
+        btn = QtWidgets.QPushButton(str3)
+        btn.setFixedSize(50, 50)
+        if func:
+            btn.clicked.connect(func)
+
+        self.setCellWidget(row_position, 0, lbl1)
+        self.setCellWidget(row_position, 1, lbl2)
+        self.setCellWidget(row_position, 2, btn)

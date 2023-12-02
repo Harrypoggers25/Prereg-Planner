@@ -122,6 +122,7 @@ class HpTableWidget(QtWidgets.QTableWidget):
         QtWidgets.QTableWidget.__init__(self, parent)
         self.horizontalHeader().hide()
         self.verticalHeader().hide()
+        self.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
 
     def setTableType(self, type):
         self.setColumnCount(3)

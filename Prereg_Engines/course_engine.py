@@ -13,19 +13,11 @@ class CourseEngine:
         self.current_param = f"{n_kulliyah}_{n_session}_{n_ctype}"
         self.loaded_courses = self.kulliyah_engine.getCourses()
 
-        for code in self.selected_courses:
-            if code in self.loaded_courses:
-                self.loaded_courses.pop(code) # remove duplicate
-
     def selectCourse(self, code : str):
-        self.selected_courses[code] = self.loaded_courses.pop(code)
+        self.selected_courses[code] = self.loaded_courses[code]
 
     def deselectCourse(self, code : str):
-        if self.selected_courses[code].param == self.current_param:
-            self.loaded_courses[code] = self.selected_courses.pop(code)
-        else:
-            del self.selected_courses[code]
-        self.loaded_courses = dict(sorted(self.loaded_courses.items()))
+        self.selected_courses.pop(code)
 
     def getVTableCourses(self):
         vtbl_courses = [] # separating sections per course

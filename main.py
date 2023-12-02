@@ -307,6 +307,7 @@ class Ui_MainWindow(object):
         
         self.twgt_loaded_courses.setTableType('select')
         self.btn_load_courses.clicked.connect(lambda: self.btn_load_courses_clicked())
+        self.tb_search.textChanged.connect(lambda: self.tb_search_typed())
 
         self.twgt_selected_courses.setTableType('deselect')
 
@@ -348,23 +349,50 @@ class Ui_MainWindow(object):
         # self.ogl_table.setTableEngine(table_engine, self.btn_left, self.btn_right, self.lbl_index)
         # self.ogl_table.setCombinations(combinations)
     
-    # BUTTON EVENTS
+    # HELPER METHODS
+
+    # WIDGET EVENTS
     def btn_load_courses_clicked(self):
         n1 = self.cb_kulliyah.currentIndex()
         n2 = self.cb_session.currentIndex()
         n3 = self.cb_type.currentIndex()
 
-        self.course_engine.loadCourses(n1, n2, n3)
+        ce = self.course_engine
+        ce.loadCourses(n1, n2, n3)
         self.twgt_loaded_courses.setRowCount(0)
-        for code in self.course_engine.loaded_courses.keys():
+        for code in ce.loaded_courses.keys():
             def rtnlambda(c):
                 return lambda: self.btn_add_course_clicked(c)
-            self.twgt_loaded_courses.addItem(code, self.course_engine.loaded_courses[code].title, "+", rtnlambda(code))
-
+            self.twgt_loaded_courses.addItem(code, ce.loaded_courses[code].title, "+", rtnlambda(code))
+        for code in ce.selected_courses:
+            if ce.selected_courses[code].param == ce.current_param:
+                self.twgt_loaded_courses.hideRow(ce.selected_courses[code].index)
 
     def btn_add_course_clicked(self, code):
-        self.course_engine.selectCourse(code)
-        self.twgt_selected_courses.addItem(code, self.course_engine.selected_courses[code].title, "-")
+        ce = self.course_engine
+        ce.selectCourse(code)
+        def rtnLambda(c):
+            return lambda: self.btn_remove_course_clicked(c)
+        self.twgt_selected_courses.addItem(code, ce.selected_courses[code].title, "-", rtnLambda(code))
+        self.twgt_loaded_courses.hideRow(ce.selected_courses[code].index)
+
+    def btn_remove_course_clicked(self, code):
+        ce = self.course_engine
+        if ce.selected_courses[code].param == ce.current_param:
+            self.twgt_loaded_courses.showRow(ce.selected_courses[code].index)
+        self.twgt_selected_courses.removeRow(list(ce.selected_courses).index(code))
+        ce.deselectCourse(code)
+
+    def tb_search_typed(self):
+        str_sub = self.tb_search.text().lower()
+        for code, course in self.course_engine.loaded_courses.items():
+            if str_sub:
+                if str_sub not in code.lower():
+                    self.twgt_loaded_courses.hideRow(course.index)
+                else:
+                    self.twgt_loaded_courses.showRow(course.index)
+            elif code not in self.course_engine.selected_courses:
+                self.twgt_loaded_courses.showRow(course.index)
 
 if __name__ == "__main__":
     import sys

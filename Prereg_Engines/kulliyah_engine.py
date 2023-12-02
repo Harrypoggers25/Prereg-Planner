@@ -45,6 +45,7 @@ class KulliyahEngine:
     def getCourses(self):
         dict_course = dict()
         n_page = 1
+        index = 0
         while True:
             str_url = self.generateLink(n_page)
             webObj = urllib.request.urlopen(str_url)
@@ -62,6 +63,8 @@ class KulliyahEngine:
                         parsed_courses[code].param = self.params['val']
                         if not code in dict_course:
                             dict_course[code] = parsed_courses[code]
+                            dict_course[code].index = index
+                            index += 1
                         else:
                             dict_course[code].sects.extend(parsed_courses[code].sects)
-            n_page = n_page + 1
+            n_page += 1

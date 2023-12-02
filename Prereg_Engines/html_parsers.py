@@ -46,7 +46,7 @@ class HTMLCPParser:
             if not code in dict_course:
                 course.code = code
                 course.title = datas[2].text
-                course.ch = int(datas[3].text)
+                course.ch = float(datas[3].text)
                 dict_course[code] = course
 
             sect = CourseSection()

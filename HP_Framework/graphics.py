@@ -29,24 +29,20 @@ class HpGlWidget(QOpenGLWidget):
         self.updateRenderTable(w, h)
 
     def paintGL(self):
-        glClear(GL_COLOR_BUFFER_BIT)
-        
-        for rect in self.rects:
-            self.renderRect(rect)
-
         painter = QtGui.QPainter(self)
+        self.renderRect(HpGlRect(0, 0, self.width(), self.height(), HpRgbColor(0, 0, 0)), painter)
+
+        for rect in self.rects:
+            self.renderRect(rect, painter)
+
         for text in self.texts:
             self.renderText(text, painter)
 
     ################################## LOW LEVEL IMPLEMETATION ##################################
-    def renderRect(self, rect : HpGlRect):
-        glColor3f(rect.color.r / 255, rect.color.g / 255, rect.color.b/ 255)
-        glBegin(GL_QUADS)
-        glVertex2f(rect.x, rect.y)
-        glVertex2f(rect.x + rect.w, rect.y)
-        glVertex2f(rect.x + rect.w, rect.y + rect.h)
-        glVertex2f(rect.x, rect.y + rect.h)
-        glEnd()
+    def renderRect(self, rect : HpGlRect, painter : QtGui.QPainter):
+        painter.beginNativePainting()
+        painter.fillRect(QRectF(rect.x, rect.y, rect.w, rect.h), QtGui.QColor(rect.color.r, rect.color.g, rect.color.b))
+        painter.endNativePainting()
 
     def renderText(self, text : HpGlText, painter : QtGui.QPainter):
         painter.beginNativePainting()

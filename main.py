@@ -16,7 +16,14 @@ from Prereg_Engines.table_engine import TableEngine
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(717, 588)
+        MainWindow.resize(800, 700)
+        MainWindow.setMinimumSize(QtCore.QSize(0, 0))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        MainWindow.setFont(font)
         self.wgt_central = QtWidgets.QWidget(MainWindow)
         self.wgt_central.setObjectName("wgt_central")
         self.gridLayout = QtWidgets.QGridLayout(self.wgt_central)
@@ -59,18 +66,22 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.lbl_kulliyah = QtWidgets.QLabel(self.frm_kulliyah)
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
         self.lbl_kulliyah.setFont(font)
         self.lbl_kulliyah.setObjectName("lbl_kulliyah")
         self.horizontalLayout_4.addWidget(self.lbl_kulliyah)
         self.cb_kulliyah = QtWidgets.QComboBox(self.frm_kulliyah)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        self.cb_kulliyah.setFont(font)
         self.cb_kulliyah.setObjectName("cb_kulliyah")
         self.horizontalLayout_4.addWidget(self.cb_kulliyah)
         self.horizontalLayout_2.addWidget(self.frm_kulliyah)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem)
         self.verticalLayout_2.addWidget(self.frm_top_left_top)
         self.frm_top_left_bottom = QtWidgets.QFrame(self.frm_top_left)
         self.frm_top_left_bottom.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -88,13 +99,19 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
         self.lbl_session = QtWidgets.QLabel(self.frm_session)
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
         self.lbl_session.setFont(font)
         self.lbl_session.setObjectName("lbl_session")
         self.horizontalLayout_7.addWidget(self.lbl_session)
         self.cb_session = QtWidgets.QComboBox(self.frm_session)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        self.cb_session.setFont(font)
         self.cb_session.setObjectName("cb_session")
         self.horizontalLayout_7.addWidget(self.cb_session)
         self.horizontalLayout_6.addWidget(self.frm_session)
@@ -105,22 +122,30 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.frm_type)
         self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem)
         self.lbl_type = QtWidgets.QLabel(self.frm_type)
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
         self.lbl_type.setFont(font)
         self.lbl_type.setObjectName("lbl_type")
         self.horizontalLayout_5.addWidget(self.lbl_type)
         self.cb_type = QtWidgets.QComboBox(self.frm_type)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        self.cb_type.setFont(font)
         self.cb_type.setObjectName("cb_type")
         self.horizontalLayout_5.addWidget(self.cb_type)
         self.horizontalLayout_6.addWidget(self.frm_type)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_6.addItem(spacerItem1)
         self.verticalLayout_2.addWidget(self.frm_top_left_bottom)
         self.horizontalLayout.addWidget(self.frm_top_left)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem1)
         self.frm_top_right = QtWidgets.QFrame(self.frm_top)
         self.frm_top_right.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frm_top_right.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -128,29 +153,53 @@ class Ui_MainWindow(object):
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.frm_top_right)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.btn_load_courses = QtWidgets.QPushButton(self.frm_top_right)
+        self.btn_load_courses.setMinimumSize(QtCore.QSize(120, 40))
         font = QtGui.QFont()
         font.setPointSize(10)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
         self.btn_load_courses.setFont(font)
         self.btn_load_courses.setIconSize(QtCore.QSize(16, 16))
         self.btn_load_courses.setObjectName("btn_load_courses")
         self.verticalLayout_3.addWidget(self.btn_load_courses)
         self.lbl_or = QtWidgets.QLabel(self.frm_top_right)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        self.lbl_or.setFont(font)
         self.lbl_or.setAlignment(QtCore.Qt.AlignCenter)
         self.lbl_or.setObjectName("lbl_or")
         self.verticalLayout_3.addWidget(self.lbl_or)
         self.btn_open_file = QtWidgets.QPushButton(self.frm_top_right)
+        self.btn_open_file.setMinimumSize(QtCore.QSize(120, 40))
         font = QtGui.QFont()
         font.setPointSize(10)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
         self.btn_open_file.setFont(font)
+        self.btn_open_file.setStyleSheet("#btn_open_file{\n"
+"    background-color: #f8c600;\n"
+"    border-radius: 5%;\n"
+"}\n"
+"#btn_open_file::pressed{\n"
+"    background-color: #dcb000;\n"
+"}")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Assets/Icons/arrow-up.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_open_file.setIcon(icon)
-        self.btn_open_file.setIconSize(QtCore.QSize(20, 20))
+        self.btn_open_file.setIconSize(QtCore.QSize(25, 25))
+        self.btn_open_file.setDefault(False)
+        self.btn_open_file.setFlat(False)
         self.btn_open_file.setObjectName("btn_open_file")
         self.verticalLayout_3.addWidget(self.btn_open_file)
         self.horizontalLayout.addWidget(self.frm_top_right)
         self.verticalLayout.addWidget(self.frm_top)
         self.frm_bottom = QtWidgets.QFrame(self.wgt_page1)
+        self.frm_bottom.setMinimumSize(QtCore.QSize(764, 505))
         self.frm_bottom.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frm_bottom.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frm_bottom.setObjectName("frm_bottom")
@@ -166,7 +215,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
         self.lbl_loaded_courses = QtWidgets.QLabel(self.frm_loaded_courses_header)
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
         self.lbl_loaded_courses.setFont(font)
@@ -175,6 +224,14 @@ class Ui_MainWindow(object):
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_8.addItem(spacerItem2)
         self.frm_search = QtWidgets.QFrame(self.frm_loaded_courses_header)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        font.setKerning(False)
+        self.frm_search.setFont(font)
+        self.frm_search.setAutoFillBackground(False)
         self.frm_search.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frm_search.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frm_search.setObjectName("frm_search")
@@ -184,35 +241,79 @@ class Ui_MainWindow(object):
         self.lbl_search = QtWidgets.QLabel(self.frm_search)
         font = QtGui.QFont()
         font.setPointSize(10)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        font.setKerning(False)
         self.lbl_search.setFont(font)
         self.lbl_search.setObjectName("lbl_search")
         self.horizontalLayout_9.addWidget(self.lbl_search)
         self.tb_search = QtWidgets.QLineEdit(self.frm_search)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        self.tb_search.setFont(font)
+        self.tb_search.setStyleSheet("border-radius: 5%;")
         self.tb_search.setFrame(False)
         self.tb_search.setObjectName("tb_search")
         self.horizontalLayout_9.addWidget(self.tb_search)
         self.horizontalLayout_8.addWidget(self.frm_search)
         self.gridLayout_5.addWidget(self.frm_loaded_courses_header, 0, 0, 1, 1)
-        self.lbl_selected_courses = QtWidgets.QLabel(self.frm_bottom)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        font.setBold(True)
-        font.setWeight(75)
-        self.lbl_selected_courses.setFont(font)
-        self.lbl_selected_courses.setObjectName("lbl_selected_courses")
-        self.gridLayout_5.addWidget(self.lbl_selected_courses, 0, 1, 1, 1)
         self.twgt_loaded_courses = HpTableWidget(self.frm_bottom)
         self.twgt_loaded_courses.setMinimumSize(QtCore.QSize(323, 0))
         self.twgt_loaded_courses.setObjectName("twgt_loaded_courses")
         self.twgt_loaded_courses.setColumnCount(0)
         self.twgt_loaded_courses.setRowCount(0)
-        self.gridLayout_5.addWidget(self.twgt_loaded_courses, 1, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.twgt_loaded_courses, 2, 0, 1, 1)
         self.twgt_selected_courses = HpTableWidget(self.frm_bottom)
         self.twgt_selected_courses.setMinimumSize(QtCore.QSize(323, 0))
         self.twgt_selected_courses.setObjectName("twgt_selected_courses")
         self.twgt_selected_courses.setColumnCount(0)
         self.twgt_selected_courses.setRowCount(0)
-        self.gridLayout_5.addWidget(self.twgt_selected_courses, 1, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.twgt_selected_courses, 2, 1, 1, 1)
+        self.frame = QtWidgets.QFrame(self.frm_bottom)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.horizontalLayout_10 = QtWidgets.QHBoxLayout(self.frame)
+        self.horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_10.setObjectName("horizontalLayout_10")
+        self.lbl_selected_courses = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.lbl_selected_courses.setFont(font)
+        self.lbl_selected_courses.setObjectName("lbl_selected_courses")
+        self.horizontalLayout_10.addWidget(self.lbl_selected_courses)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_10.addItem(spacerItem3)
+        self.btn_generate = QtWidgets.QPushButton(self.frame)
+        self.btn_generate.setEnabled(True)
+        self.btn_generate.setMinimumSize(QtCore.QSize(160, 40))
+        self.btn_generate.setBaseSize(QtCore.QSize(0, 0))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setUnderline(False)
+        font.setWeight(50)
+        self.btn_generate.setFont(font)
+        self.btn_generate.setStyleSheet("#btn_generate{\n"
+"    background-color: #00bb00;\n"
+"    border-radius: 5%;\n"
+"}\n"
+"#btn_generate::pressed{\n"
+"    background-color: green;\n"
+"}\n"
+"#btn_generate::disabled{\n"
+"    background-color: #a5ffa5;\n"
+"    color: #777777;\n"
+"}")
+        self.btn_generate.setObjectName("btn_generate")
+        self.horizontalLayout_10.addWidget(self.btn_generate)
+        self.gridLayout_5.addWidget(self.frame, 0, 1, 1, 1)
         self.verticalLayout.addWidget(self.frm_bottom)
         self.swgt_1.addWidget(self.wgt_page1)
         self.wgt_page2 = QtWidgets.QWidget()
@@ -229,14 +330,17 @@ class Ui_MainWindow(object):
         self.frm_left.setObjectName("frm_left")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.frm_left)
         self.gridLayout_4.setObjectName("gridLayout_4")
-        self.btn_right = QtWidgets.QPushButton(self.frm_left)
-        self.btn_right.setObjectName("btn_right")
-        self.gridLayout_4.addWidget(self.btn_right, 0, 1, 1, 1)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_4.addItem(spacerItem3, 3, 0, 1, 2)
-        self.btn_left = QtWidgets.QPushButton(self.frm_left)
-        self.btn_left.setObjectName("btn_left")
-        self.gridLayout_4.addWidget(self.btn_left, 0, 0, 1, 1)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_4.addItem(spacerItem4, 9, 0, 1, 2)
+        self.btn_add = QtWidgets.QPushButton(self.frm_left)
+        self.btn_add.setObjectName("btn_add")
+        self.gridLayout_4.addWidget(self.btn_add, 0, 0, 1, 2)
+        self.btn_export = QtWidgets.QPushButton(self.frm_left)
+        self.btn_export.setObjectName("btn_export")
+        self.gridLayout_4.addWidget(self.btn_export, 2, 0, 1, 2)
+        self.btn_save = QtWidgets.QPushButton(self.frm_left)
+        self.btn_save.setObjectName("btn_save")
+        self.gridLayout_4.addWidget(self.btn_save, 1, 0, 1, 2)
         self.lbl_index = QtWidgets.QLabel(self.frm_left)
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -245,7 +349,16 @@ class Ui_MainWindow(object):
 "    text-align: center;\n"
 "}")
         self.lbl_index.setObjectName("lbl_index")
-        self.gridLayout_4.addWidget(self.lbl_index, 1, 0, 1, 2, QtCore.Qt.AlignHCenter)
+        self.gridLayout_4.addWidget(self.lbl_index, 5, 0, 1, 2, QtCore.Qt.AlignHCenter)
+        self.btn_left = QtWidgets.QPushButton(self.frm_left)
+        self.btn_left.setObjectName("btn_left")
+        self.gridLayout_4.addWidget(self.btn_left, 4, 0, 1, 1)
+        self.btn_right = QtWidgets.QPushButton(self.frm_left)
+        self.btn_right.setObjectName("btn_right")
+        self.gridLayout_4.addWidget(self.btn_right, 4, 1, 1, 1)
+        self.btn_delete = QtWidgets.QPushButton(self.frm_left)
+        self.btn_delete.setObjectName("btn_delete")
+        self.gridLayout_4.addWidget(self.btn_delete, 3, 0, 1, 2)
         self.horizontalLayout_3.addWidget(self.frm_left)
         self.frm_right = QtWidgets.QFrame(self.wgt_page2)
         self.frm_right.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -291,25 +404,34 @@ class Ui_MainWindow(object):
         self.lbl_loaded_courses.setText(_translate("MainWindow", "Loaded courses"))
         self.lbl_search.setText(_translate("MainWindow", "Search"))
         self.lbl_selected_courses.setText(_translate("MainWindow", "Selected courses"))
-        self.btn_right.setText(_translate("MainWindow", ">"))
-        self.btn_left.setText(_translate("MainWindow", "<"))
+        self.btn_generate.setText(_translate("MainWindow", "Generate Schedule"))
+        self.btn_add.setText(_translate("MainWindow", "add"))
+        self.btn_export.setText(_translate("MainWindow", "export"))
+        self.btn_save.setText(_translate("MainWindow", "save"))
         self.lbl_index.setText(_translate("MainWindow", "? / ?"))
-    
+        self.btn_left.setText(_translate("MainWindow", "<"))
+        self.btn_right.setText(_translate("MainWindow", ">"))
+        self.btn_delete.setText(_translate("MainWindow", "delete"))
+
     def run(self):
         #************************IMPLEMENTATION************************#
         ############################ PAGE 1 ############################
         
         self.course_engine = CourseEngine()
+        self.table_engine = TableEngine()
 
         self.cb_kulliyah.addItems(self.course_engine.getKulliyahs())
         self.cb_session.addItems(self.course_engine.getSessions())
         self.cb_type.addItems(['UNDERGRADUATE', 'POSTGRADUATE'])
-        
-        self.twgt_loaded_courses.setTableType('select')
         self.btn_load_courses.clicked.connect(lambda: self.btn_load_courses_clicked())
-        self.tb_search.textChanged.connect(lambda: self.tb_search_typed())
 
+        self.tb_search.textChanged.connect(lambda: self.tb_search_typed())
+        self.twgt_loaded_courses.setTableType('select')
+        self.btn_generate.clicked.connect(lambda: self.btn_generate_clicked())
+        self.btn_generate.setDisabled(True)
         self.twgt_selected_courses.setTableType('deselect')
+
+        self.btn_export.clicked.connect(self.btn_export_clicked)
 
         # self.course_engine.loadCourses(7, 0, 0) # Loads Engin Kulliyah's Subjects
         # # ----------------------TEST 1---------------------- #  4th year subjects
@@ -350,6 +472,26 @@ class Ui_MainWindow(object):
         # self.ogl_table.setCombinations(combinations)
     
     # HELPER METHODS
+    def updateHiddenLoadedCourses(self):
+        str_sub = self.tb_search.text().lower()
+        ce = self.course_engine
+
+        # check searched courses
+        for code, course in ce.loaded_courses.items():
+            index = course.index
+            if str_sub:
+                if str_sub in code.lower():
+                    self.twgt_loaded_courses.showRow(index)
+                else:
+                    self.twgt_loaded_courses.hideRow(index)
+            else:
+                self.twgt_loaded_courses.showRow(index)
+                    
+        # check selected courses
+        for code, course in ce.selected_courses.items():
+            if code in ce.loaded_courses and course.param == ce.current_param:
+                index = ce.loaded_courses[code].index
+                self.twgt_loaded_courses.hideRow(index)
 
     # WIDGET EVENTS
     def btn_load_courses_clicked(self):
@@ -364,13 +506,14 @@ class Ui_MainWindow(object):
             def rtnlambda(c):
                 return lambda: self.btn_add_course_clicked(c)
             self.twgt_loaded_courses.addItem(code, ce.loaded_courses[code].title, "+", rtnlambda(code))
-        for code in ce.selected_courses:
-            if ce.selected_courses[code].param == ce.current_param:
-                self.twgt_loaded_courses.hideRow(ce.selected_courses[code].index)
+
+        self.updateHiddenLoadedCourses()
 
     def btn_add_course_clicked(self, code):
         ce = self.course_engine
         ce.selectCourse(code)
+        if len(ce.selected_courses) >= 2:
+            self.btn_generate.setDisabled(False)
         def rtnLambda(c):
             return lambda: self.btn_remove_course_clicked(c)
         self.twgt_selected_courses.addItem(code, ce.selected_courses[code].title, "-", rtnLambda(code))
@@ -378,21 +521,33 @@ class Ui_MainWindow(object):
 
     def btn_remove_course_clicked(self, code):
         ce = self.course_engine
-        if ce.selected_courses[code].param == ce.current_param:
-            self.twgt_loaded_courses.showRow(ce.selected_courses[code].index)
         self.twgt_selected_courses.removeRow(list(ce.selected_courses).index(code))
         ce.deselectCourse(code)
+        if len(ce.selected_courses) < 2:
+            self.btn_generate.setDisabled(True)
+        self.updateHiddenLoadedCourses()
 
     def tb_search_typed(self):
-        str_sub = self.tb_search.text().lower()
-        for code, course in self.course_engine.loaded_courses.items():
-            if str_sub:
-                if str_sub not in code.lower():
-                    self.twgt_loaded_courses.hideRow(course.index)
-                else:
-                    self.twgt_loaded_courses.showRow(course.index)
-            elif code not in self.course_engine.selected_courses:
-                self.twgt_loaded_courses.showRow(course.index)
+        self.updateHiddenLoadedCourses()
+
+    def btn_generate_clicked(self):
+        vtblcourses = self.course_engine.getVTableCourses() # vector list of course tables
+        n_chs = self.course_engine.getCHs() # list of credit hours
+
+        self.table_engine.setVTblCourses(vtblcourses, n_chs)    
+        combinations = self.table_engine.getCombinations(self.ogl_table.width(), self.ogl_table.height())
+
+        self.ogl_table.setTableEngine(self.table_engine, self.btn_left, self.btn_right, self.lbl_index)
+        self.ogl_table.setCombinations(combinations)
+
+        self.swgt_1.setCurrentIndex(1)
+
+    def btn_export_clicked(self):
+        file, _ = QtWidgets.QFileDialog.getSaveFileName(None, "Save as...", "table", "PNG (*.png);; BMP (*.bmp);;TIFF (*.tiff *.tif);; JPEG (*.jpg *.jpeg)")
+        if file:
+            image = QtGui.QImage(self.ogl_table.grab())
+            image.save(file)
+
 
 if __name__ == "__main__":
     import sys
@@ -403,3 +558,4 @@ if __name__ == "__main__":
     ui.run()
     MainWindow.show()
     sys.exit(app.exec_())
+

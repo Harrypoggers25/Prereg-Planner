@@ -6,9 +6,23 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>717</width>
-    <height>588</height>
+    <width>800</width>
+    <height>700</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>10</pointsize>
+    <weight>50</weight>
+    <bold>false</bold>
+    <underline>false</underline>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Prereg Planner</string>
@@ -107,7 +121,7 @@
                      <widget class="QLabel" name="lbl_kulliyah">
                       <property name="font">
                        <font>
-                        <pointsize>10</pointsize>
+                        <pointsize>12</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -118,23 +132,19 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QComboBox" name="cb_kulliyah"/>
+                     <widget class="QComboBox" name="cb_kulliyah">
+                      <property name="font">
+                       <font>
+                        <pointsize>12</pointsize>
+                        <weight>50</weight>
+                        <bold>false</bold>
+                        <underline>false</underline>
+                       </font>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_2">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
                  </item>
                 </layout>
                </widget>
@@ -185,7 +195,7 @@
                      <widget class="QLabel" name="lbl_session">
                       <property name="font">
                        <font>
-                        <pointsize>10</pointsize>
+                        <pointsize>12</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -196,7 +206,16 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QComboBox" name="cb_session"/>
+                     <widget class="QComboBox" name="cb_session">
+                      <property name="font">
+                       <font>
+                        <pointsize>12</pointsize>
+                        <weight>50</weight>
+                        <bold>false</bold>
+                        <underline>false</underline>
+                       </font>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -223,10 +242,23 @@
                      <number>0</number>
                     </property>
                     <item>
+                     <spacer name="horizontalSpacer">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
                      <widget class="QLabel" name="lbl_type">
                       <property name="font">
                        <font>
-                        <pointsize>10</pointsize>
+                        <pointsize>12</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -237,29 +269,38 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QComboBox" name="cb_type"/>
+                     <widget class="QComboBox" name="cb_type">
+                      <property name="font">
+                       <font>
+                        <pointsize>12</pointsize>
+                        <weight>50</weight>
+                        <bold>false</bold>
+                        <underline>false</underline>
+                       </font>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
                  </item>
                 </layout>
                </widget>
               </item>
              </layout>
             </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item>
             <widget class="QFrame" name="frm_top_right">
@@ -272,9 +313,18 @@
              <layout class="QVBoxLayout" name="verticalLayout_3">
               <item>
                <widget class="QPushButton" name="btn_load_courses">
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>40</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <pointsize>10</pointsize>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                  <underline>false</underline>
                  </font>
                 </property>
                 <property name="text">
@@ -290,6 +340,14 @@
               </item>
               <item>
                <widget class="QLabel" name="lbl_or">
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                  <underline>false</underline>
+                 </font>
+                </property>
                 <property name="text">
                  <string>or</string>
                 </property>
@@ -300,10 +358,28 @@
               </item>
               <item>
                <widget class="QPushButton" name="btn_open_file">
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>40</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <pointsize>10</pointsize>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                  <underline>false</underline>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">#btn_open_file{
+	background-color: #f8c600;
+	border-radius: 5%;
+}
+#btn_open_file::pressed{
+	background-color: #dcb000;
+}</string>
                 </property>
                 <property name="text">
                  <string>Open file</string>
@@ -314,9 +390,15 @@
                 </property>
                 <property name="iconSize">
                  <size>
-                  <width>20</width>
-                  <height>20</height>
+                  <width>25</width>
+                  <height>25</height>
                  </size>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
+                <property name="flat">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -328,6 +410,12 @@
         </item>
         <item>
          <widget class="QFrame" name="frm_bottom">
+          <property name="minimumSize">
+           <size>
+            <width>764</width>
+            <height>505</height>
+           </size>
+          </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
@@ -363,7 +451,7 @@
                <widget class="QLabel" name="lbl_loaded_courses">
                 <property name="font">
                  <font>
-                  <pointsize>10</pointsize>
+                  <pointsize>12</pointsize>
                   <weight>75</weight>
                   <bold>true</bold>
                  </font>
@@ -388,6 +476,18 @@
               </item>
               <item>
                <widget class="QFrame" name="frm_search">
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                  <underline>false</underline>
+                  <kerning>false</kerning>
+                 </font>
+                </property>
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -412,6 +512,10 @@
                    <property name="font">
                     <font>
                      <pointsize>10</pointsize>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                     <underline>false</underline>
+                     <kerning>false</kerning>
                     </font>
                    </property>
                    <property name="text">
@@ -421,6 +525,17 @@
                  </item>
                  <item>
                   <widget class="QLineEdit" name="tb_search">
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                     <underline>false</underline>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">border-radius: 5%;</string>
+                   </property>
                    <property name="frame">
                     <bool>false</bool>
                    </property>
@@ -432,21 +547,7 @@
              </layout>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="lbl_selected_courses">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Selected courses</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
+           <item row="2" column="0">
             <widget class="HpTableWidget" name="twgt_loaded_courses">
              <property name="minimumSize">
               <size>
@@ -456,7 +557,7 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
+           <item row="2" column="1">
             <widget class="HpTableWidget" name="twgt_selected_courses">
              <property name="minimumSize">
               <size>
@@ -464,6 +565,100 @@
                <height>0</height>
               </size>
              </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QFrame" name="frame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_10">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="lbl_selected_courses">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Selected courses</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_generate">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>160</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="baseSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                  <underline>false</underline>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">#btn_generate{
+	background-color: #00bb00;
+	border-radius: 5%;
+}
+#btn_generate::pressed{
+	background-color: green;
+}
+#btn_generate::disabled{
+	background-color: #a5ffa5;
+	color: #777777;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Generate Schedule</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
           </layout>
@@ -493,14 +688,7 @@
            <enum>QFrame::Raised</enum>
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
-           <item row="0" column="1">
-            <widget class="QPushButton" name="btn_right">
-             <property name="text">
-              <string>&gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0" colspan="2">
+           <item row="9" column="0" colspan="2">
             <spacer name="verticalSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -513,14 +701,28 @@
              </property>
             </spacer>
            </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="btn_left">
+           <item row="0" column="0" colspan="2">
+            <widget class="QPushButton" name="btn_add">
              <property name="text">
-              <string>&lt;</string>
+              <string>add</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="0" colspan="2" alignment="Qt::AlignHCenter">
+           <item row="2" column="0" colspan="2">
+            <widget class="QPushButton" name="btn_export">
+             <property name="text">
+              <string>export</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QPushButton" name="btn_save">
+             <property name="text">
+              <string>save</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0" colspan="2" alignment="Qt::AlignHCenter">
             <widget class="QLabel" name="lbl_index">
              <property name="font">
               <font>
@@ -534,6 +736,27 @@
              </property>
              <property name="text">
               <string>? / ?</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QPushButton" name="btn_left">
+             <property name="text">
+              <string>&lt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QPushButton" name="btn_right">
+             <property name="text">
+              <string>&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="2">
+            <widget class="QPushButton" name="btn_delete">
+             <property name="text">
+              <string>delete</string>
              </property>
             </widget>
            </item>

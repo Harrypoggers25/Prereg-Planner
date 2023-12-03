@@ -11,7 +11,6 @@ class HpGlWidget(QOpenGLWidget):
         self.rects = []
         self.texts = []
         self.tbl_engine = None
-        self.lbl_index = None
 
     def initializeGL(self):
         glDisable(GL_DEPTH_TEST)
@@ -26,7 +25,8 @@ class HpGlWidget(QOpenGLWidget):
         glOrtho(0, w, h, 0, -1, 1)  # Flip the y-axis to position the origin at the top-left corner
         glMatrixMode(GL_MODELVIEW)
 
-        self.updateRenderTable(w, h)
+        self.updateCombinations(self.tbl_engine.index)
+        self.paintGL()
 
     def paintGL(self):
         painter = QtGui.QPainter(self)
@@ -67,18 +67,18 @@ class HpGlWidget(QOpenGLWidget):
         self.texts.append(gl_text)
     
     ################################## HIGH LEVEL IMPLEMETATION ##################################
-    def setTableEngine(self, table_engine : TableEngine, btn_left : QtWidgets.QPushButton, btn_right : QtWidgets.QPushButton, lbl_index : QtWidgets.QLabel):
+    def setTableEngine(self, table_engine : TableEngine):
         self.tbl_engine = table_engine
-        self.lbl_index = lbl_index
-        btn_left.clicked.connect(lambda: self.btnLeftPressed())
-        btn_right.clicked.connect(lambda: self.btnRightPressed())
-
-        table_engine.setIndex(0)
     
-    def setCombinations(self, combinations):
+    def  updateCombinations(self, index=None):
         self.rects.clear()
         self.texts.clear()
+        
         if self.tbl_engine:
+            if index:
+                self.tbl_engine.setIndex(index)
+            combinations = self.tbl_engine.getCombinations(self.width(), self.height())
+
             for table in combinations:
                 for rects in table.vrects:
                     for rect in rects:
@@ -91,27 +91,15 @@ class HpGlWidget(QOpenGLWidget):
             for text in self.tbl_engine.texts[1]:
                 self.addText(text.x, text.y, text.val, font, HpRgbColor(255, 255, 255), True, True)
 
-            self.lbl_index.setText(f"{self.tbl_engine.index + 1} / {self.tbl_engine.getVCombinationsSize()}")
+            # self.lbl_index.setText(f"{self.tbl_engine.index + 1} / {self.tbl_engine.getVCombinationsSize()}")
 
-    def updateRenderTable(self, w, h):
-        self.setCombinations(self.tbl_engine.getCombinations(w, h))
+            return combinations
+        return None
+
+    def clear(self):
+        self.rects = []
+        self.texts = []
         self.paintGL()
-
-    def btnLeftPressed(self):
-        if self.tbl_engine:
-            if self.tbl_engine.index - 1 >= 0:
-                self.tbl_engine.setIndex(self.tbl_engine.index - 1)
-                self.updateRenderTable(self.width(), self.height())
-            # else:
-            #     print('reached minimum')    # TEMPORARY
-    
-    def btnRightPressed(self):
-        if self.tbl_engine:
-            if self.tbl_engine.index + 1 < self.tbl_engine.getVCombinationsSize():
-                self.tbl_engine.setIndex(self.tbl_engine.index + 1)
-                self.updateRenderTable(self.width(), self.height())
-            # else:
-            #     print('reached maximum')    # TEMPORARY
 
 class HpTableWidget(QtWidgets.QTableWidget):
     def __init__(self, parent=None):

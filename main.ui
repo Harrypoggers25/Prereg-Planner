@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>700</height>
+    <width>796</width>
+    <height>686</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -124,6 +124,7 @@
                         <pointsize>12</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
+                        <underline>false</underline>
                        </font>
                       </property>
                       <property name="text">
@@ -198,6 +199,7 @@
                         <pointsize>12</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
+                        <underline>false</underline>
                        </font>
                       </property>
                       <property name="text">
@@ -261,6 +263,7 @@
                         <pointsize>12</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
+                        <underline>false</underline>
                        </font>
                       </property>
                       <property name="text">
@@ -454,6 +457,7 @@
                   <pointsize>12</pointsize>
                   <weight>75</weight>
                   <bold>true</bold>
+                  <underline>false</underline>
                  </font>
                 </property>
                 <property name="text">
@@ -595,6 +599,7 @@
                   <pointsize>12</pointsize>
                   <weight>75</weight>
                   <bold>true</bold>
+                  <underline>false</underline>
                  </font>
                 </property>
                 <property name="text">
@@ -688,7 +693,31 @@
            <enum>QFrame::Raised</enum>
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
-           <item row="9" column="0" colspan="2">
+           <item row="1" column="0" colspan="2">
+            <widget class="QPushButton" name="btn_save">
+             <property name="text">
+              <string>save</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0" colspan="2" alignment="Qt::AlignHCenter">
+            <widget class="QLabel" name="lbl_index">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">#lbl_index{
+	text-align: center;
+}</string>
+             </property>
+             <property name="text">
+              <string>? / ?</string>
+             </property>
+            </widget>
+           </item>
+           <item row="15" column="0" colspan="2">
             <spacer name="verticalSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -708,34 +737,10 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="0" colspan="2">
-            <widget class="QPushButton" name="btn_export">
+           <item row="4" column="1">
+            <widget class="QPushButton" name="btn_right">
              <property name="text">
-              <string>export</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0" colspan="2">
-            <widget class="QPushButton" name="btn_save">
-             <property name="text">
-              <string>save</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0" colspan="2" alignment="Qt::AlignHCenter">
-            <widget class="QLabel" name="lbl_index">
-             <property name="font">
-              <font>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">#lbl_index{
-	text-align: center;
-}</string>
-             </property>
-             <property name="text">
-              <string>? / ?</string>
+              <string>&gt;</string>
              </property>
             </widget>
            </item>
@@ -746,17 +751,38 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="1">
-            <widget class="QPushButton" name="btn_right">
-             <property name="text">
-              <string>&gt;</string>
-             </property>
-            </widget>
-           </item>
            <item row="3" column="0" colspan="2">
             <widget class="QPushButton" name="btn_delete">
              <property name="text">
               <string>delete</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="2">
+            <widget class="QPushButton" name="btn_export">
+             <property name="text">
+              <string>export</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0" colspan="2" alignment="Qt::AlignHCenter">
+            <widget class="QLabel" name="lbl_ch">
+             <property name="minimumSize">
+              <size>
+               <width>93</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Total CH: ?</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>

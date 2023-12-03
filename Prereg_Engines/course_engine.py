@@ -1,5 +1,7 @@
+import copy
+
 from Prereg_Engines.kulliyah_engine import KulliyahEngine
-from Prereg_Engines.models import CourseTable
+from Prereg_Engines.models import CourseTable, Course, CourseSection, CourseInfo
 
 class CourseEngine:
     def __init__(self):
@@ -25,7 +27,7 @@ class CourseEngine:
             tbl_courses = []
             tbl_course = None
             sect = None
-            sections = course.sects
+            sections = copy.deepcopy(course.sects)
             i = 0
             while len(sections) != 0:
                 if not tbl_course:
@@ -57,6 +59,58 @@ class CourseEngine:
 
     def getSessions(self):
         return [f"Sem {session.sem}, {session.year}" for session in self.kulliyah_engine.sessions]
+
+    def writeFile(self, dir):
+        file = open(dir, "w")
+
+        for course in self.selected_courses.values():
+            file.write(f'{course.title}//{course.code}//{course.ch}//{course.index}//{course.param}//c\n')
+            for sect in course.sects:
+                file.write(f'{sect.val}//s\n')
+                for info in sect.infos:
+                    file.write(f'{info.day}//{info.time}//{info.lecturer}//i\n')
+            file.write(';\n')
+        file.close()
+
+    def readFile(self, dir):
+        file = open(dir, "r")
+        lines = file.readlines()
+        course = None
+        section = None
+        info = None
+        dict_courses = dict()
+        for i in range(len(lines)):
+            line = lines[i][:-1]
+            if line[-3:] == '//c':
+                line = line[:-3]
+                datas = line.split('//')
+                course = Course()
+                course.title = datas[0]
+                course.code = datas[1]
+                course.ch = float(datas[2])
+                course.index = int(datas[3])
+                course.param = datas[4]
+            elif line[-3:] == '//s':
+                section = CourseSection()
+                section.val = line[:-3]
+                course.sects.append(section)
+            elif line[-3:] == '//i':
+                info = CourseInfo()
+                line = line[:-3]
+                datas = line.split('//')
+                info.day = datas[0]
+                info.time = datas[1]
+                info.lecturer = datas[2]
+                section.infos.append(info)
+            else:
+                dict_courses[course.code] = course
+        file.close()
+        self.selected_courses = dict_courses
+
+    def clear(self):
+        self.loaded_courses = dict()
+        self.selected_courses = dict()
+        self.current_param = ""      
 
     @staticmethod
     def isSectionEqual(section1, section2):

@@ -16,7 +16,7 @@ from Prereg_Engines.table_engine import TableEngine
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 700)
+        MainWindow.resize(800, 695)
         MainWindow.setMinimumSize(QtCore.QSize(0, 0))
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -68,6 +68,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
+        font.setUnderline(False)
         font.setWeight(75)
         self.lbl_kulliyah.setFont(font)
         self.lbl_kulliyah.setObjectName("lbl_kulliyah")
@@ -101,6 +102,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
+        font.setUnderline(False)
         font.setWeight(75)
         self.lbl_session.setFont(font)
         self.lbl_session.setObjectName("lbl_session")
@@ -128,6 +130,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
+        font.setUnderline(False)
         font.setWeight(75)
         self.lbl_type.setFont(font)
         self.lbl_type.setObjectName("lbl_type")
@@ -217,6 +220,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
+        font.setUnderline(False)
         font.setWeight(75)
         self.lbl_loaded_courses.setFont(font)
         self.lbl_loaded_courses.setObjectName("lbl_loaded_courses")
@@ -284,6 +288,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
+        font.setUnderline(False)
         font.setWeight(75)
         self.lbl_selected_courses.setFont(font)
         self.lbl_selected_courses.setObjectName("lbl_selected_courses")
@@ -330,14 +335,6 @@ class Ui_MainWindow(object):
         self.frm_left.setObjectName("frm_left")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.frm_left)
         self.gridLayout_4.setObjectName("gridLayout_4")
-        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_4.addItem(spacerItem4, 9, 0, 1, 2)
-        self.btn_add = QtWidgets.QPushButton(self.frm_left)
-        self.btn_add.setObjectName("btn_add")
-        self.gridLayout_4.addWidget(self.btn_add, 0, 0, 1, 2)
-        self.btn_export = QtWidgets.QPushButton(self.frm_left)
-        self.btn_export.setObjectName("btn_export")
-        self.gridLayout_4.addWidget(self.btn_export, 2, 0, 1, 2)
         self.btn_save = QtWidgets.QPushButton(self.frm_left)
         self.btn_save.setObjectName("btn_save")
         self.gridLayout_4.addWidget(self.btn_save, 1, 0, 1, 2)
@@ -349,16 +346,32 @@ class Ui_MainWindow(object):
 "    text-align: center;\n"
 "}")
         self.lbl_index.setObjectName("lbl_index")
-        self.gridLayout_4.addWidget(self.lbl_index, 5, 0, 1, 2, QtCore.Qt.AlignHCenter)
-        self.btn_left = QtWidgets.QPushButton(self.frm_left)
-        self.btn_left.setObjectName("btn_left")
-        self.gridLayout_4.addWidget(self.btn_left, 4, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.lbl_index, 6, 0, 1, 2, QtCore.Qt.AlignHCenter)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_4.addItem(spacerItem4, 15, 0, 1, 2)
+        self.btn_add = QtWidgets.QPushButton(self.frm_left)
+        self.btn_add.setObjectName("btn_add")
+        self.gridLayout_4.addWidget(self.btn_add, 0, 0, 1, 2)
         self.btn_right = QtWidgets.QPushButton(self.frm_left)
         self.btn_right.setObjectName("btn_right")
         self.gridLayout_4.addWidget(self.btn_right, 4, 1, 1, 1)
+        self.btn_left = QtWidgets.QPushButton(self.frm_left)
+        self.btn_left.setObjectName("btn_left")
+        self.gridLayout_4.addWidget(self.btn_left, 4, 0, 1, 1)
         self.btn_delete = QtWidgets.QPushButton(self.frm_left)
         self.btn_delete.setObjectName("btn_delete")
         self.gridLayout_4.addWidget(self.btn_delete, 3, 0, 1, 2)
+        self.btn_export = QtWidgets.QPushButton(self.frm_left)
+        self.btn_export.setObjectName("btn_export")
+        self.gridLayout_4.addWidget(self.btn_export, 2, 0, 1, 2)
+        self.lbl_ch = QtWidgets.QLabel(self.frm_left)
+        self.lbl_ch.setMinimumSize(QtCore.QSize(93, 0))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.lbl_ch.setFont(font)
+        self.lbl_ch.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.lbl_ch.setObjectName("lbl_ch")
+        self.gridLayout_4.addWidget(self.lbl_ch, 7, 0, 1, 2, QtCore.Qt.AlignHCenter)
         self.horizontalLayout_3.addWidget(self.frm_left)
         self.frm_right = QtWidgets.QFrame(self.wgt_page2)
         self.frm_right.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -405,13 +418,14 @@ class Ui_MainWindow(object):
         self.lbl_search.setText(_translate("MainWindow", "Search"))
         self.lbl_selected_courses.setText(_translate("MainWindow", "Selected courses"))
         self.btn_generate.setText(_translate("MainWindow", "Generate Schedule"))
-        self.btn_add.setText(_translate("MainWindow", "add"))
-        self.btn_export.setText(_translate("MainWindow", "export"))
         self.btn_save.setText(_translate("MainWindow", "save"))
         self.lbl_index.setText(_translate("MainWindow", "? / ?"))
-        self.btn_left.setText(_translate("MainWindow", "<"))
+        self.btn_add.setText(_translate("MainWindow", "add"))
         self.btn_right.setText(_translate("MainWindow", ">"))
+        self.btn_left.setText(_translate("MainWindow", "<"))
         self.btn_delete.setText(_translate("MainWindow", "delete"))
+        self.btn_export.setText(_translate("MainWindow", "export"))
+        self.lbl_ch.setText(_translate("MainWindow", "Total CH: ?"))
 
     def run(self):
         #************************IMPLEMENTATION************************#
@@ -423,15 +437,23 @@ class Ui_MainWindow(object):
         self.cb_kulliyah.addItems(self.course_engine.getKulliyahs())
         self.cb_session.addItems(self.course_engine.getSessions())
         self.cb_type.addItems(['UNDERGRADUATE', 'POSTGRADUATE'])
-        self.btn_load_courses.clicked.connect(lambda: self.btn_load_courses_clicked())
+        self.btn_load_courses.clicked.connect(self.btn_load_courses_clicked)
+        self.btn_open_file.clicked.connect(self.btn_open_file_clicked)
 
-        self.tb_search.textChanged.connect(lambda: self.tb_search_typed())
+        self.tb_search.textChanged.connect(self.tb_search_typed)
         self.twgt_loaded_courses.setTableType('select')
-        self.btn_generate.clicked.connect(lambda: self.btn_generate_clicked())
+        self.btn_generate.clicked.connect(self.btn_generate_clicked)
         self.btn_generate.setDisabled(True)
         self.twgt_selected_courses.setTableType('deselect')
 
+        ############################# PAGE 2 ############################
+        self.ogl_table.setTableEngine(self.table_engine)
+        self.btn_left.clicked.connect(self.btn_left_clicked)
+        self.btn_right.clicked.connect(self.btn_right_clicked)
+        self.btn_add.clicked.connect(self.btn_add_clicked)
+        self.btn_save.clicked.connect(self.btn_save_clicked)
         self.btn_export.clicked.connect(self.btn_export_clicked)
+        self.btn_delete.clicked.connect(self.btn_delete_clicked)
 
         # self.course_engine.loadCourses(7, 0, 0) # Loads Engin Kulliyah's Subjects
         # # ----------------------TEST 1---------------------- #  4th year subjects
@@ -451,7 +473,6 @@ class Ui_MainWindow(object):
         # self.course_engine.selectCourse('MECH 1302')
         # self.course_engine.deselectCourse('EECE 1101')
         
-        # ############################ PAGE 2 ############################
         # vtblcourses = self.course_engine.getVTableCourses() # vector list of course tables
         # n_chs = self.course_engine.getCHs() # list of credit hours
         # b_selected_courses = [
@@ -509,6 +530,19 @@ class Ui_MainWindow(object):
 
         self.updateHiddenLoadedCourses()
 
+    def btn_open_file_clicked(self):
+        file, _ = QtWidgets.QFileDialog.getOpenFileName(None, "Open session", "", "DAT file (*.dat)")
+        if file:
+            ce = self.course_engine
+            ce.readFile(file)
+            for code in ce.selected_courses.keys():
+                if len(ce.selected_courses) >= 2:
+                    self.btn_generate.setDisabled(False)
+                def rtnLambda(c):
+                    return lambda: self.btn_remove_course_clicked(c)
+                self.twgt_selected_courses.addItem(code, ce.selected_courses[code].title, "-", rtnLambda(code))
+            self.btn_generate_clicked()
+
     def btn_add_course_clicked(self, code):
         ce = self.course_engine
         ce.selectCourse(code)
@@ -534,13 +568,37 @@ class Ui_MainWindow(object):
         vtblcourses = self.course_engine.getVTableCourses() # vector list of course tables
         n_chs = self.course_engine.getCHs() # list of credit hours
 
-        self.table_engine.setVTblCourses(vtblcourses, n_chs)    
-        combinations = self.table_engine.getCombinations(self.ogl_table.width(), self.ogl_table.height())
+        self.table_engine.setVTblCourses(vtblcourses, n_chs)
+        self.ogl_table.updateCombinations(0)
 
-        self.ogl_table.setTableEngine(self.table_engine, self.btn_left, self.btn_right, self.lbl_index)
-        self.ogl_table.setCombinations(combinations)
+        self.lbl_index.setText(f"{self.table_engine.index + 1} / {self.table_engine.getVCombinationsSize()}")
+        self.lbl_ch.setText(f'Total CH: {self.table_engine.getTotalCH()}')
 
         self.swgt_1.setCurrentIndex(1)
+
+    def btn_left_clicked(self):
+        index = self.table_engine.index - 1
+        if index >= 0:
+            self.ogl_table.updateCombinations(index)
+            self.ogl_table.paintGL()
+            self.lbl_index.setText(f"{index + 1} / {self.table_engine.getVCombinationsSize()}")
+
+    def btn_right_clicked(self):
+        index = self.table_engine.index + 1
+        if index < self.table_engine.getVCombinationsSize():
+            self.ogl_table.updateCombinations(index)
+            self.ogl_table.paintGL()
+            self.lbl_index.setText(f"{index + 1} / {self.table_engine.getVCombinationsSize()}")
+
+    def btn_add_clicked(self):
+        self.ogl_table.clear()
+        self.table_engine.clear()
+        self.swgt_1.setCurrentIndex(0)
+
+    def btn_save_clicked(self):
+        file, _ = QtWidgets.QFileDialog.getSaveFileName(None, "Save session", "session", "DAT file (*.dat)")
+        if file:
+            self.course_engine.writeFile(file)
 
     def btn_export_clicked(self):
         file, _ = QtWidgets.QFileDialog.getSaveFileName(None, "Save as...", "table", "PNG (*.png);; BMP (*.bmp);;TIFF (*.tiff *.tif);; JPEG (*.jpg *.jpeg)")
@@ -548,6 +606,15 @@ class Ui_MainWindow(object):
             image = QtGui.QImage(self.ogl_table.grab())
             image.save(file)
 
+    def btn_delete_clicked(self):
+        self.ogl_table.clear()
+        self.table_engine.clear()
+        self.twgt_loaded_courses.setRowCount(0)
+        self.twgt_selected_courses.setRowCount(0)
+        self.course_engine.clear()
+        self.tb_search.setText('')
+        self.btn_generate.setDisabled(True)
+        self.swgt_1.setCurrentIndex(0)
 
 if __name__ == "__main__":
     import sys
@@ -558,4 +625,3 @@ if __name__ == "__main__":
     ui.run()
     MainWindow.show()
     sys.exit(app.exec_())
-

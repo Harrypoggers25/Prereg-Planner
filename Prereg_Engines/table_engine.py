@@ -6,7 +6,7 @@ from Prereg_Engines.models import Vector2n
 
 class TableEngine():
     def __init__(self):
-        self.total_ch = 0
+        self.chs = []
         self.vtblcourses = [] # stores 2d list of courses sorted by section
         self.vcombinations = [] # stores 2D list of course combinatons
         self.vvrects = []
@@ -31,22 +31,19 @@ class TableEngine():
     def setVTblCourses(self, vtblcourses, n_chs, bselected_courses = None):
         self.vtblcourses = vtblcourses
         self.bselected_courses = bselected_courses if bselected_courses else [True] * len(self.vtblcourses)
-
-        for i in range(len(n_chs)):
-            if self.bselected_courses[i]:
-                self.total_ch += n_chs[i]
+        self.chs = n_chs
 
         if len(self.color) < len(self.vtblcourses):
             n_diff = len(self.vtblcourses) - len(self.color)
             self.color.extend(self.color[:n_diff])
 
-        self.generateVCombinations()
+        self.setBSelectCourses(self.bselected_courses)
 
-    def setBSelectCourses(self, bselected_courses):
-        if bselected_courses:
-            for i in range(len(self.bselected_courses)):
-                self.bselected_courses[i] = bselected_courses[i]
-            self.generateVCombinations()
+    def setBSelectCourses(self, b_selected_courses):
+        for i in range(len(b_selected_courses)):
+            self.bselected_courses[i] = b_selected_courses[i]
+                
+        self.generateVCombinations()
         
     def generateVCombinations(self):
         n_size = 0
@@ -125,7 +122,6 @@ class TableEngine():
 
         return self.vcombinations[self.index]
     
-
     def setRectFormat(self, N_SIZE, N_OFFSET, n_b):
         N_W = (N_SIZE.x - N_OFFSET.x) / (n_b['right'] - n_b['left'] + 1)  # day width constant
         str_days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
@@ -185,6 +181,15 @@ class TableEngine():
     def getVCombinationsSize(self):
         return len(self.vcombinations)
     
+    def getTotalCH(self):
+        if len(self.vcombinations) > 0:
+            n_totalCH = 0
+            for i in range(len(self.bselected_courses)):
+                if self.bselected_courses[i]:
+                    n_totalCH += self.chs[i]
+            return n_totalCH
+        return None
+
     @staticmethod
     def isTablesCollide(table, tbl_combinations):
         for tbl_course in tbl_combinations:
@@ -215,3 +220,25 @@ class TableEngine():
                 if rect.x > n_b['right']:
                     n_b['right'] = rect.x
         return n_b
+    
+    def clear(self):
+        self.index = 0
+        self.vtblcourses = [] # stores 2d list of courses sorted by section
+        self.vcombinations = [] # stores 2D list of course combinatons
+        self.vvrects = []
+        self.texts = []
+        self.bselected_courses = [] # list of boolean
+        self.color = [
+            HpRgbColor(238, 36, 36),    # RED
+            HpRgbColor(239, 81, 34),    # ORANGE
+            HpRgbColor(22, 87, 143),    # BLUE
+            HpRgbColor(20, 175, 74),    # GREEN
+            HpRgbColor(173, 20, 175),   # PURPLE
+            HpRgbColor(0, 94, 33),      # D_GREEN
+            HpRgbColor(80, 100, 0),     # D_YELLOW
+            HpRgbColor(2, 183, 164),    # D_CYAN
+            HpRgbColor(175, 92, 37),    # MUD
+            HpRgbColor(239, 88, 61),    # CARROT
+            HpRgbColor(50, 80, 140),    # P_BLUE
+            HpRgbColor(241, 85, 98),    # P_RED
+        ]

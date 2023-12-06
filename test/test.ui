@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>543</width>
-    <height>164</height>
+    <width>854</width>
+    <height>168</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,12 +15,26 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QListWidget" name="listWidget"/>
+    <item row="2" column="0">
+     <widget class="HpListWidget" name="lwgt"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="btn_check">
+      <property name="text">
+       <string>Check</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>HpListWidget</class>
+   <extends>QListWidget</extends>
+   <header>hplistwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

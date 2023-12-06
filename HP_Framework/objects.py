@@ -57,6 +57,8 @@ class HpRgbColor:
         self.r = r
         self.g = g
         self.b = b
+HpRgbColor.BLACK = HpRgbColor(0, 0, 0)
+HpRgbColor.WHITE = HpRgbColor(255, 255, 255)
 
 class HpFont:
     def __init__(self, family, size = 20, weight = 400, italic = False):

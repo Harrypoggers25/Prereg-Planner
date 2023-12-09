@@ -20,17 +20,21 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class HpListWidget(QtWidgets.QListWidget):
     def __init__(self, parent=None):
         super(HpListWidget, self).__init__(parent)
-        self.cbs = []
-        self.vcolors = []   # HpRgbColor
-        self.swgts = []
+        self.cbs = []   #checkboxes
+        self.vcolors_default = []   # HpRgbColor
+        self.vcolors_current = []   # HpRgbColor
+        self.swgts = [] # stacked widgets
         
         self.setStyleSheet('QListWidget::item { border: 2px solid black }')
         self.setSpacing(4)
 
     def setDefaultVColors(self, vcolors):
-        self.vcolors = vcolors
+        self.vcolors_default = vcolors
 
     def addItem(self, title : str, code : str, sects : list, color_index: int):
+        self.vcolors_current.append(self.vcolors_default[color_index])
+
+        # setup ui
         swgt = QtWidgets.QStackedWidget()
 
         wgt1 = QtWidgets.QWidget()
@@ -43,6 +47,7 @@ class HpListWidget(QtWidgets.QListWidget):
         lbl1 = QtWidgets.QLabel(title)
         font = QtGui.QFont('roboto', 10, 600, False)
         lbl1.setFont(font)
+        font.setWeight(400)
         lbl2 = QtWidgets.QLabel(code)
         lbl2.setFont(font)
         lbl3 = QtWidgets.QLabel(f'Sections: {sects}')
@@ -53,7 +58,7 @@ class HpListWidget(QtWidgets.QListWidget):
         frm1.setLayout(vlayout1)
         btn = QtWidgets.QPushButton(wgt1)
         btn.setFixedSize(40, 40)
-        btn.setStyleSheet(f'background-color: rgb({self.vcolors[color_index][0].r},{self.vcolors[color_index][0].g},{self.vcolors[color_index][0].b});')
+        btn.setStyleSheet(f'background-color: rgb({self.vcolors_default[color_index][0].r},{self.vcolors_default[color_index][0].g},{self.vcolors_default[color_index][0].b});')
         hlayout1.addWidget(self.cbs[-1])
         hlayout1.addWidget(frm1)
         hlayout1.addWidget(btn)
@@ -64,17 +69,18 @@ class HpListWidget(QtWidgets.QListWidget):
         scbtns = []
         def rtnlambda1(b, c, i):
             return lambda: self.scbtn_clicked(b, c, i)
-        for colors in self.vcolors:
+        for colors in self.vcolors_default:
             scbtns.append(QtWidgets.QPushButton(wgt2))
             scbtns[-1].setStyleSheet(f'background-color: rgb({colors[0].r},{colors[0].g},{colors[0].b});')
             scbtns[-1].setFixedSize(40, 40)
-            n_color = self.vcolors[len(scbtns) - 1][0]
-            scbtns[-1].clicked.connect(rtnlambda1(btn, n_color, len(self.swgts)))
+            n_colors = self.vcolors_default[len(scbtns) - 1]
+            scbtns[-1].clicked.connect(rtnlambda1(btn, n_colors, len(self.swgts)))
         hspacer = QtWidgets.QSpacerItem(0, 0, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         frm2 = QtWidgets.QFrame(wgt2)
         vlayout2 = QtWidgets.QVBoxLayout(frm2)
         btn_close = QtWidgets.QPushButton(frm2)
         btn_close.setStyleSheet('color: red;')
+        font.setWeight(600)
         btn_close.setFont(font)
         btn_close.setText('x')
         btn_close.setFixedSize(30, 30)
@@ -110,12 +116,20 @@ class HpListWidget(QtWidgets.QListWidget):
             else:
                 self.swgts[i].setCurrentIndex(0)
     
-    def scbtn_clicked(self, btn, color, i):
-        btn.setStyleSheet(f'background-color: rgb({color.r},{color.g},{color.b});')
+    def scbtn_clicked(self, btn, colors, i):
+        self.vcolors_current[i] = colors
+        btn.setStyleSheet(f'background-color: rgb({colors[0].r},{colors[0].g},{colors[0].b});')
         self.swgts[i].setCurrentIndex(0)
-
+        
     def getCheckedItems(self):
         return [cb.isChecked() for cb in self.cbs]
+    
+    def getCurrentColors(self):
+        return self.vcolors_current
+    
+    def clear(self):
+        self.swgts.clear()
+        super().clear()
     
 class HpCheckBox(QtWidgets.QAbstractButton):
     def __init__(self, img, img_checked, parent=None):
@@ -214,7 +228,8 @@ class Ui_MainWindow(object):
         self.lwgt.addItem("OBJECT ORIENTED PROGRAMMING", "ECIE 4351", [2, 3], 4)
         self.lwgt.addItem("FINAL YEAR PROJECT I", "ECIE 4398", [1, 3], 5)
 
-        self.btn_check.clicked.connect(lambda: print(self.lwgt.getCheckedItems()))
+        # self.btn_check.clicked.connect(lambda: print(self.lwgt.getCheckedItems()))
+        self.btn_check.clicked.connect(lambda: self.lwgt.clear())
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
